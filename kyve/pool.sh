@@ -1,14 +1,19 @@
 echo "Downloading Kyve Linux Binary..."
 
-wget https://github.com/KYVENetwork/node/releases/download/%40kyve%2Fevm%401.9.2/kyve-linux-x64.zip
+wget https://github.com/KYVENetwork/kyvejs/releases/download/%40kyve%2Fkysor%401.0.0-beta.1/kysor-linux-x64.zip
 
-unzip kyve-linux-x64.zip
-chmod +x kyve-linux-x64
+unzip kysor-linux-x64.zip
+mv kysor-linux-x64 kysor
+chmod +x kysor
 
-ls
-
+echo "Fetching arweave wallet..."
 wget -O ./arweave.json $LINK_ARWEAVE_WALLET
 
-echo "Running Node..."
+echo "Initialising Node..."
+./kysor init --network $NETWORK --auto-download-binaries
 
-echo ./kyve-linux-x64 start --pool $POOL --valaccount "$MNEMONIC" --storage-priv "$(cat ./arweave.json)" --network "$NETWORK" --metrics
+echo "Creating Kyve Wallet..."
+echo $MNEMONIC | ./kysor valaccounts create --name wallet --pool $POOL --storage-priv $(cat ./arweave.json) --verbose --metrics --recover
+
+echo "Starting Node..."
+./kysor start --valaccount wallet
