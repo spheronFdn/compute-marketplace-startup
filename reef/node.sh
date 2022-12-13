@@ -1,3 +1,6 @@
+echo $ARCHIVE
+echo $NETWORK
+
 echo "Downloading Reef Node Binary..."
 
 curl -s https://api.github.com/repos/reef-defi/reef-chain/releases/latest | grep "/reef-node" | cut -d : -f 2,3 | tr -d \" | wget -qi -
@@ -7,6 +10,8 @@ if [ "$ARCHIVE" == "true" ]; then
 else
   PRUNE=""
 fi
+
+echo $PRUNE
 
 chmod +x reef-node
 
