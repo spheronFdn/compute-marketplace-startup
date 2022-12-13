@@ -7,7 +7,7 @@ chmod +x reef-node
 echo "Running Reef Node"
 
 ./reef-node \
-  --chain mainnet \
+  --chain $NETWORK \
   --base-path /reef/fullnode \
   --pruning=archive \
   --port 30333 \
