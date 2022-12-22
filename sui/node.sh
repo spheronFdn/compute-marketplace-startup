@@ -1,10 +1,15 @@
 echo "Downloading Sui Node Binary..."
 
-curl -s https://api.github.com/repos/MystenLabs/sui/releases/latest | grep "/sui-node" | cut -d : -f 2,3 | tr -d \" | wget -qi -
-chmod +x sui-node
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
+rustup update
+
+cargo install --locked --git https://github.com/MystenLabs/sui.git --branch devnet sui sui-node
+
+curl -fLJO https://github.com/MystenLabs/sui-genesis/raw/main/devnet/genesis.blob
 
 echo "Running Sui Node"
 
 wget -O ./fullnode.yaml https://raw.githubusercontent.com/MystenLabs/sui/main/crates/sui-config/data/fullnode-template.yaml 
 
-./sui-node -- --config-path fullnode.yaml
+cargo run --release --bin sui-node -- --config-path fullnode.yaml
