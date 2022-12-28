@@ -12,4 +12,4 @@ npm install -g @ceramicnetwork/cli
 
 echo "Running Ceramic Node..."
 
-ceramic daemon
+ceramic daemon --config $HOME/.ceramic/daemon.config.json
