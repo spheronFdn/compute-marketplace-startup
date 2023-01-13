@@ -1,3 +1,4 @@
+sudo apt install golang
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain
 
