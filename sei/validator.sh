@@ -18,6 +18,10 @@ seid start &
 
 PUBKEY=$(seid tendermint show-validator)
 
+echo $MNEMONIC | seid keys add mainwallet --recover --keyring-backend test
+
+seid query bank balances $ACCOUNT_ADDRESS
+
 seid tx staking create-validator \
     --amount=$AMOUNT \
     --pubkey=$PUBKEY \
