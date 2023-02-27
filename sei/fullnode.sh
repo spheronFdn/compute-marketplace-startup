@@ -2,7 +2,8 @@ sudo apt install golang -y
 git clone https://github.com/sei-protocol/sei-chain.git
 cd sei-chain
 
-git checkout $(curl -s https://api.github.com/repos/sei-protocol/sei-chain/releases/latest | grep "tag_name" | cut -d : -f 2,3 |  tr -d \" | tr -d ,)
+#git checkout $(curl -s https://api.github.com/repos/sei-protocol/sei-chain/releases/latest | grep "tag_name" | cut -d : -f 2,3 |  tr -d \" | tr -d ,)
+git checkout 1.1.1beta
 
 make install
 mv $HOME/go/bin/seid /usr/bin/
