@@ -9,6 +9,8 @@ mv $HOME/go/bin/seid /usr/bin/
 
 seid version --long | head
 
+echo $MONIKER
+
 seid init $MONIKER --chain-id sei-devnet-1 -o
 
 curl https://raw.githubusercontent.com/sei-protocol/testnet/master/sei-devnet-1/genesis.json > ~/.sei/config/genesis.json
