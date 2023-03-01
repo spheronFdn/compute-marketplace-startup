@@ -17,9 +17,16 @@ seid init $MONIKER --chain-id $CHAIN_ID -o
 curl https://raw.githubusercontent.com/sei-protocol/testnet/master/$CHAIN_ID/genesis.json > ~/.sei/config/genesis.json
 curl https://raw.githubusercontent.com/sei-protocol/testnet/master/$CHAIN_ID/addrbook.json > ~/.sei/config/addrbook.json
 
+echo "Running Validator..."
+
 seid start &
 
+echo "PUBKEY"
+
 PUBKEY=$(seid tendermint show-validator)
+
+echo "Creating an account with mnemonic..."
+echo $MNEMONIC
 
 echo $MNEMONIC | seid keys add $ACCOUNT_NAME --recover --keyring-backend test
 
