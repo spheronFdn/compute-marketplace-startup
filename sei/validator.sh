@@ -21,7 +21,7 @@ seid start &
 
 PUBKEY=$(seid tendermint show-validator)
 
-echo $MNEMONIC | seid keys add mainwallet --recover --keyring-backend test
+echo $MNEMONIC | seid keys add $ACCOUNT_NAME --recover --keyring-backend test
 
 seid query bank balances $ACCOUNT_ADDRESS
 
