@@ -14,6 +14,8 @@ git checkout ntwk/hyperspace # Hyperspace testnet
 
 mv ~/.lotus ~/.lotus-backup
 
+export PATH=$PATH:/usr/local/go/bin
+
 make clean && make hyperspacenet
 sudo make install
 
