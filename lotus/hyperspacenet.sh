@@ -24,5 +24,3 @@ wget -O config.toml https://raw.githubusercontent.com/filecoin-project/lotus/ntw
 sed -i "/#ListenAddress =/c\  ListenAddress = "/ip4/127.0.0.1/tcp/1234/http"" config.toml
 
 FULLNODE_API_INFO=wss://wss.hyperspace.node.glif.io/apigw/lotus lotus daemon --lite --config config.toml
-
-~/.lotus/config.toml
