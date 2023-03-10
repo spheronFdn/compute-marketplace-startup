@@ -24,5 +24,6 @@ lotus --version
 wget -O config.toml https://raw.githubusercontent.com/filecoin-project/lotus/ntwk/hyperspace/documentation/en/default-lotus-config.toml
 
 sed -i '/#ListenAddress =/c\  ListenAddress = "/ip4/0.0.0.0/tcp/1234/http"' config.toml
+sed -i '/#EnableEthRPC =/c\  EnableEthRPC = true' config.toml
 
 FULLNODE_API_INFO=wss://wss.hyperspace.node.glif.io/apigw/lotus lotus daemon --lite --config config.toml
