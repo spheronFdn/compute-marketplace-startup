@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  shardeum-dashboard:
+    image: spheronnetwork/shardeum:latest
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    # volumes:
+      # - './config.json:/usr/src/app/config.json:Z'
+      # - './data/logs:/usr/src/app/logs:Z'
+      # - './data/db:/usr/src/app/db:Z'
+    # restart: 'always'
+    env_file: .env
+    ports:
+      - '9001:9001'
+      - '10001:10001'
+      - '8080:8080'
+      - '3001:3001'
