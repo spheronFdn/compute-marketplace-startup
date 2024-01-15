@@ -1,6 +1,6 @@
 http {
     server {
-        listen 9001;
+        listen 10001;
 
         location / {
             proxy_pass http://localhost:${SHMINT};
@@ -8,7 +8,7 @@ http {
     }
 
     server {
-        listen 10001;
+        listen 9001;
 
         location / {
             proxy_pass http://localhost:${SHMEXT};
