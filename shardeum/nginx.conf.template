@@ -1,0 +1,19 @@
+http {
+    server {
+        listen 9001;
+
+        location / {
+            proxy_pass http://localhost:${SHMINT};
+        }
+    }
+
+    server {
+        listen 10001;
+
+        location / {
+            proxy_pass http://localhost:${SHMEXT};
+        }
+    }
+}
+
+events {}
