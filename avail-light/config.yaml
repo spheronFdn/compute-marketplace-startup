@@ -1,46 +1,43 @@
-http_server_host: "0.0.0.0"
-http_server_port: 7000
-secret_key: null
-port: 37000
-autonat_only_global_ips: false
-autonat_throttle: 1
-autonat_retry_interval: 20
-autonat_refresh_interval: 360
-autonat_boot_delay: 5
-bootstraps:
-  - PeerIdAndMultiaddr:
-      PeerId: "12D3KooWBkLsNGaD3SpMaRWtAmWVuiZg1afdNSPbtJ8M8r9ArGRT"
-      Multiaddr: "/dns/bootnode.1.lightclient.goldberg.avail.tools/tcp/37000"
-bootstrap_period: 3600
-operation_mode: Client
-relays: []
-full_node_ws: ["wss://goldberg.avail.tools:443/ws"]
-genesis_hash: "6f09966420b2608d1947ccfb0f2a362450d1fc7fd902c29b67c906eaa965a7ae"
-app_id: null
-confidence: 99.9
-avail_path: "avail_path"
-log_level: "INFO"
-origin: "external"
-log_format_json: false
-ot_collector_endpoint: "http://otel.lightclient.goldberg.avail.tools:4317"
-disable_rpc: false
-dht_parallelization_limit: 20
-query_proof_rpc_parallel_tasks: 8
-block_processing_delay: 10
-block_matrix_partition: null
-sync_start_block: null
-sync_finality_enable: true
-max_cells_per_rpc: 30
-threshold: 5000
-kad_record_ttl: 86400
-publication_interval: 43200
-replication_interval: 10800
-replication_factor: 5
-connection_idle_timeout: 30
-query_timeout: 10
-query_parallelism: 3
-caching_max_peers: 1
-disjoint_query_paths: false
-max_kad_record_number: 2400000
-max_kad_record_size: 8192
-max_kad_provided_keys: 1024
+http_server_host = "0.0.0.0"
+# http_server_port = 7000
+# secret_key = null
+# port = 37000
+# autonat_only_global_ips = false
+# autonat_throttle = 1
+# autonat_retry_interval = 20
+# autonat_refresh_interval = 360
+# autonat_boot_delay = 5
+# bootstraps = [PeerIdAndMultiaddr((PeerId("12D3KooWBkLsNGaD3SpMaRWtAmWVuiZg1afdNSPbtJ8M8r9ArGRT"), "/dns/bootnode.1.lightclient.goldberg.avail.tools/tcp/37000"))]
+# bootstrap_period = 3600
+# operation_mode = Client
+# relays = []
+# full_node_ws = ["wss://goldberg.avail.tools:443/ws"]
+# genesis_hash = "6f09966420b2608d1947ccfb0f2a362450d1fc7fd902c29b67c906eaa965a7ae"
+# app_id = null
+# confidence = 99.9
+# avail_path = "avail_path"
+# log_level = "INFO"
+# origin = "external"
+# log_format_json = false
+# ot_collector_endpoint = "http://otel.lightclient.goldberg.avail.tools:4317"
+# disable_rpc = false
+# dht_parallelization_limit = 20
+# query_proof_rpc_parallel_tasks = 8
+# block_processing_delay = 10
+# block_matrix_partition = null
+# sync_start_block = null
+# sync_finality_enable = true
+# max_cells_per_rpc = 30
+# threshold = 5000
+# kad_record_ttl = 86400
+# publication_interval = 43200
+# replication_interval = 10800
+# replication_factor = 5
+# connection_idle_timeout = 30
+# query_timeout = 10
+# query_parallelism = 3
+# caching_max_peers = 1
+# disjoint_query_paths = false
+# max_kad_record_number = 2400000
+# max_kad_record_size = 8192
+# max_kad_provided_keys = 1024
