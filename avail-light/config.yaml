@@ -14,8 +14,7 @@ bootstraps:
 bootstrap_period: 3600
 operation_mode: Client
 relays: []
-full_node_ws:
-  - "wss://goldberg.avail.tools:443/ws"
+full_node_ws: ["wss://goldberg.avail.tools:443/ws"]
 genesis_hash: "6f09966420b2608d1947ccfb0f2a362450d1fc7fd902c29b67c906eaa965a7ae"
 app_id: null
 confidence: 99.9
