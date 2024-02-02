@@ -14,7 +14,10 @@ RUN apt-get update && \
 
 # Install Go
 RUN curl -L https://go.dev/dl/go1.20.12.linux-amd64.tar.gz | tar -xzf - -C /usr/local
-ENV PATH="/usr/local/go/bin:${PATH}"
+
+# After installing Go and setting up the environment
+ENV PATH="/root/go/bin:${PATH}"
+
 
 # Clone Babylon repository and checkout the specific version
 RUN git clone https://github.com/babylonchain/babylon.git && \
