@@ -1,0 +1,19 @@
+{
+  "chain": "testnet",
+  "log-dir": "/log",
+  "enable-console-log": true,
+  "no-mdns": true,
+  "validator": true,
+  "unsafe-rpc-external": true,
+  "offchain-worker": "never",
+  "rpc-methods": "unsafe",
+  "log": "info,runtime=info",
+  "port": 30333,
+  "rpc-port": 8087,
+  "pruning": "archive",
+  "db-cache": 2048,
+  "name": "Your-Node-Name",
+  "base-path": "/data",
+  "telemetry-url": "wss://telemetry-testnet.bevm.io/submit 1",
+  "bootnodes": []
+}
