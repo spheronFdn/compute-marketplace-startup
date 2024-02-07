@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Run the command and capture the output
-OUTPUT=$(command: fuel-core-keygen new --key-type peering)
+OUTPUT=$(fuel-core-keygen new --key-type peering)
 
 # Extract the secret using a tool like jq (assuming the output is JSON)
 SECRET=$(echo $OUTPUT | jq -r '.secret')
