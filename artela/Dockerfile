@@ -27,8 +27,8 @@ RUN git clone https://github.com/artela-network/artela && \
 
 # Prepare binaries for Cosmovisor
 RUN mkdir -p /root/.artelad/cosmovisor/genesis/bin && \
-    mv /root/artelad/build/artelad /root/.artelad/cosmovisor/genesis/bin/ && \
-    rm -rf /root/artelad/build
+    mv ./build/artelad /root/.artelad/cosmovisor/genesis/bin/ && \
+    rm -rf ./build
 
 # # Create symlinks for the application
 RUN ln -s /root/.artelad/cosmovisor/genesis /root/.artelad/cosmovisor/current -f && \
