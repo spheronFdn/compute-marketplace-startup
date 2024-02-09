@@ -19,7 +19,7 @@ RUN curl -L https://go.dev/dl/go1.20.12.linux-amd64.tar.gz | tar -xzf - -C /usr/
 ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 
 
-# Clone Babylon repository and checkout the specific version
+# Clone artelad repository and checkout the specific version
 RUN git clone https://github.com/artela-network/artela && \
     cd artela && \
     git checkout main && \
@@ -27,8 +27,8 @@ RUN git clone https://github.com/artela-network/artela && \
 
 # Prepare binaries for Cosmovisor
 RUN mkdir -p /root/.artelad/cosmovisor/genesis/bin && \
-    mv /root/babylon/build/artelad /root/.artelad/cosmovisor/genesis/bin/ && \
-    rm -rf /root/babylon/build
+    mv /root/artelad/build/artelad /root/.artelad/cosmovisor/genesis/bin/ && \
+    rm -rf /root/artelad/build
 
 # # Create symlinks for the application
 RUN ln -s /root/.artelad/cosmovisor/genesis /root/.artelad/cosmovisor/current -f && \
