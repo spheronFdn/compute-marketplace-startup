@@ -16,13 +16,13 @@ curl -Ls https://docs.artela.network/assets/files/genesis-314f4b0294712c1bc6c3f4
 # curl -Ls https://snapshots.kjnodes.com/babylon-testnet/addrbook.json > $HOME/.artelad/config/addrbook.json
 
 # Add seeds
-sed -i 's/seeds = ""/seeds = "<node-id-1@node-1-ip:port>,<node-id-2@node-2-ip:port>"/' $HOME/.artelad/config/config.toml
+sed -i 's/seeds = ""/seeds = "9e2fbfc4b32a1b013e53f3fc9b45638f4cddee36@47.254.66.177:26656,aa416d3628dcce6e87d4b92d1867c8eca36a70a7@47.254.93.86:26656"/' $HOME/.artelad/config/config.toml
 
 #Set state sync
 sed -i 's/enable = false/enable = true/' $HOME/.artelad/config/config.toml
-sed -i 's/trust_height = 0/trust_height = <BLOCK_HEIGHT>/' $HOME/.artelad/config/config.toml
-sed -i 's/trust_hash = ""/trust_hash = "<BLOCK_HASH>"/' $HOME/.artelad/config/config.toml
-sed -i 's/rpc_servers = ""/rpc_servers = "node-1-ip:port,node-2-ip:port"/' $HOME/.artelad/config/config.toml
+sed -i 's/trust_height = 0/trust_height = 114011/' $HOME/.artelad/config/config.toml
+sed -i 's/trust_hash = ""/trust_hash = "94077D92B3DE77C3AE94BEBF496601E7CBA3EEF7CD7E17BD8513F16D9DDA8712"/' $HOME/.artelad/config/config.toml
+sed -i 's/rpc_servers = ""/rpc_servers = "47.254.66.177:26657,47.254.93.86:26657"/' $HOME/.artelad/config/config.toml
 
 # # Set minimum gas price
 sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.02uart\"|" $HOME/.artelad/config/app.toml
