@@ -9,7 +9,7 @@ MONIKER=${MONIKER:-"YOUR_MONIKER_GOES_HERE"}
 # babylond config node tcp://localhost:16457
 
 # Initialize the node
-dymd init "$MONIKER" --chain-id dymension_1100-1
+artelad init "$MONIKER"
 
 # Download genesis and addrbook
 curl -Ls https://docs.artela.network/assets/files/genesis-314f4b0294712c1bc6c3f4213fa76465.json > $HOME/.artelad/config/genesis.json
