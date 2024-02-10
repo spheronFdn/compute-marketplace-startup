@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd junction
+ls
 
 # Initialize Junction Node with MONIKER
 rm -rf ~/.junction
