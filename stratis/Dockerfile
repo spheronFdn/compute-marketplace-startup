@@ -12,7 +12,7 @@ RUN apt-get update && \
 RUN git clone https://github.com/stratisproject/StratisEVM --recurse-submodules
 
 # Build Geth from Source
-WORKDIR /usr/src/app/StratisEVM/go-ethereum
+WORKDIR /usr/src/app/StratisEVM/go-stratis
 RUN go build -o=/usr/local/bin/geth ./cmd/geth
 
 # Build Prysm from Source
