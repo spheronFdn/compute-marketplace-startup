@@ -27,10 +27,10 @@ RUN wget https://github.com/ignite/cli/releases/download/v0.27.1/ignite_0.27.1_l
     && rm ignite_0.27.1_linux_amd64.tar.gz
 
 # Clone and setup the Junction Node
-# RUN git clone https://github.com/airchains-network/junction.git \
-#     && cd junction \
-#     && git checkout v0.0.2-beta \
-#     && ignite chain build 
+RUN git clone https://github.com/airchains-network/junction.git \
+    && cd junction \
+    && git checkout v0.0.2-beta \
+    && ignite chain build 
 
 # Copy startup script
 COPY startup.sh /startup.sh
