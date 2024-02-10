@@ -2,8 +2,8 @@
 
 # install junctiond
 git clone https://github.com/airchains-network/junction.git
-cd junction \
-git checkout v0.0.2-beta \
+cd junction
+git checkout v0.0.2-beta
 ignite chain build 
 
 # Initialize Junction Node with MONIKER
