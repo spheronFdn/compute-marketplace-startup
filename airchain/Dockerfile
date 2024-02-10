@@ -12,9 +12,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Go
-RUN wget https://dl.google.com/go/go1.20.6.linux-amd64.tar.gz \
-    && tar -C /usr/local -xzf go1.20.6.linux-amd64.tar.gz \
-    && rm go1.20.6.linux-amd64.tar.gz
+RUN wget https://go.dev/dl/go1.21.linux-amd64.tar.gz \
+    && tar -C /usr/local -xzf go1.21.linux-amd64.tar.gz \
+    && rm go1.21.linux-amd64.tar.gz
 
 # Set the Go path
 ENV PATH="/usr/local/go/bin:${PATH}"
