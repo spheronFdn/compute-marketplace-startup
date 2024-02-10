@@ -7,7 +7,7 @@ git checkout v0.0.2-beta
 ignite chain build 
 
 # Initialize Junction Node with MONIKER
-rm -rf ~/.junction
+# rm -rf ~/.junction
 junctiond init $MONIKER
 
 # Copy the genesis file
