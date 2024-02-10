@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd junction
+
 # Initialize Junction Node with MONIKER
 rm -rf ~/.junction
 junctiond init $MONIKER
