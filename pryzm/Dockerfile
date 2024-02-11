@@ -31,7 +31,7 @@ RUN wget https://storage.googleapis.com/pryzm-zone/core/0.11.1/pryzmd-0.11.1-lin
     mv pryzmd $HOME/.pryzm/cosmovisor/genesis/bin/
 
 # Install Cosmovisor
-RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
+RUN /usr/local/go/bin/go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
 # Copy the setup scripts and configuration files into the container
 COPY setup_node.sh /usr/local/bin/setup_node.sh
