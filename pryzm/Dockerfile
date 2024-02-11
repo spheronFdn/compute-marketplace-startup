@@ -28,15 +28,6 @@ RUN wget https://storage.googleapis.com/pryzm-zone/core/0.11.1/pryzmd-0.11.1-lin
     mkdir -p $HOME/.pryzm/cosmovisor/genesis/bin && \
     mv pryzmd $HOME/.pryzm/cosmovisor/genesis/bin/
 
-# Prepare binaries for Cosmovisor
-RUN mkdir -p /root/.babylond/cosmovisor/genesis/bin && \
-    mv /root/babylon/build/babylond /root/.babylond/cosmovisor/genesis/bin/ && \
-    rm -rf /root/babylon/build
-
-# Create symlinks for the application
-RUN ln -s /root/.babylond/cosmovisor/genesis /root/.babylond/cosmovisor/current -f && \
-    ln -s /root/.babylond/cosmovisor/current/bin/babylond /usr/local/bin/babylond -f
-
 # Install Cosmovisor
 RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
 
