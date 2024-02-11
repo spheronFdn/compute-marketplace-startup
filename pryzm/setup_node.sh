@@ -1,6 +1,6 @@
 #!/bin/bash
 # Load profile to ensure paths are set
-# . $HOME/.profile
+. $HOME/.profile
 
 # Configure moniker
 MONIKER="${MONIKER:-default-moniker}" # Default moniker name if not set
