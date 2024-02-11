@@ -34,12 +34,12 @@ RUN wget https://storage.googleapis.com/pryzm-zone/core/0.11.1/pryzmd-0.11.1-lin
 RUN /usr/local/go/bin/go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
 # Copy the setup scripts and configuration files into the container
-COPY setup_node.sh /usr/local/bin/setup_node.sh
-COPY start_node.sh /usr/local/bin/start_node.sh
+COPY setup_node.sh /home/pryzm/setup_node.sh
+COPY start_node.sh /home/pryzm/start_node.sh
 # COPY pryzm.service /etc/systemd/system/pryzm.service
 
 # Make scripts executable
-RUN chmod +x /usr/local/bin/setup_node.sh /usr/local/bin/start_node.sh
+RUN chmod +x /home/pryzm/setup_node.sh /home/pryzm/start_node.sh
 
 # Set the entrypoint to the start script
-ENTRYPOINT ["/usr/local/bin/start_node.sh"]
+ENTRYPOINT ["/home/pryzm/start_node.sh"]
