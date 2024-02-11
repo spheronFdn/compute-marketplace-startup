@@ -28,7 +28,9 @@ RUN wget https://storage.googleapis.com/pryzm-zone/core/0.11.1/pryzmd-0.11.1-lin
     mv pryzmd-0.11.1-linux-amd64 pryzmd && \
     chmod +x pryzmd && \
     mkdir -p $HOME/.pryzm/cosmovisor/genesis/bin && \
-    mv pryzmd $HOME/.pryzm/cosmovisor/genesis/bin/
+    mv pryzmd $HOME/.pryzm/cosmovisor/genesis/bin/ && \
+    echo 'export PATH=$PATH:$HOME/.pryzm/cosmovisor/genesis/bin' >> $HOME/.profile
+
 
 # Install Cosmovisor
 RUN /usr/local/go/bin/go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0

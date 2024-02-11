@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Load profile to ensure paths are set
 . $HOME/.profile
 
