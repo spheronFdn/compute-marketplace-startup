@@ -37,3 +37,8 @@ sed -i -e "s%^address = \"tcp://localhost:1317\"%address = \"tcp://0.0.0.0:16417
 # Download latest chain snapshot
 curl -L https://snapshots.kjnodes.com/babylon-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.babylond
 [[ -f $HOME/.babylond/data/upgrade-info.json ]] && cp $HOME/.babylond/data/upgrade-info.json $HOME/.babylond/cosmovisor/genesis/upgrade-info.json
+
+# Start the node (if applicable, or configure to start with Docker container)
+# This part may need to be handled outside of the script for Docker deployments
+
+echo "Setup complete. Node configured and ready."
