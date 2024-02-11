@@ -14,12 +14,14 @@ RUN apt-get update -qq && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+WORKDIR /home/pryzm
+
 # Install Go
-RUN curl -L https://go.dev/dl/go1.20.12.linux-amd64.tar.gz | tar -xzf - -C /usr/local
-
-# Correctly set the PATH to include both Go binaries and workspace binaries
-ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
-
+RUN rm -rf /usr/local/go && \
+    curl -Ls https://go.dev/dl/go1.20.3.linux-amd64.tar.gz | tar -xzf - -C /usr/local && \
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile && \
+    echo 'export PATH=$PATH:$HOME/go/bin' >> $HOME/.profile && \
+    . $HOME/.profile
 
 # Download and prepare pryzm binaries
 RUN wget https://storage.googleapis.com/pryzm-zone/core/0.11.1/pryzmd-0.11.1-linux-amd64 && \
