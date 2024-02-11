@@ -33,4 +33,3 @@ echo "Remember to initiate oracle delegate feed consent tx manually."
 
 # Reminder to start Pryzm Feeder manually due to Docker usage
 echo "To start Pryzm Feeder, ensure Docker is correctly set up and run the following command in the pryzmfeeder directory:"
-echo "docker run --name=pryzm-feeder --network host --restart=always -v '$(pwd)/config.yaml:/app/config.yaml' -v '$(pwd)/logs:/app/logs' europe-docker.pkg.dev/pryzm-zone/core/pryzm-feeder:0.3.4"

@@ -1,0 +1,1 @@
+docker run --name=pryzm-feeder --network host --restart=always -v '$(pwd)/config.yaml:/app/config.yaml' -v '$(pwd)/logs:/app/logs' europe-docker.pkg.dev/pryzm-zone/core/pryzm-feeder:0.3.4
