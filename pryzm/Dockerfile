@@ -36,7 +36,7 @@ RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
 # Copy the setup scripts and configuration files into the container
 COPY setup_node.sh /usr/local/bin/setup_node.sh
 COPY start_node.sh /usr/local/bin/start_node.sh
-COPY pryzm.service /etc/systemd/system/pryzm.service
+# COPY pryzm.service /etc/systemd/system/pryzm.service
 
 # Make scripts executable
 RUN chmod +x /usr/local/bin/setup_node.sh /usr/local/bin/start_node.sh
