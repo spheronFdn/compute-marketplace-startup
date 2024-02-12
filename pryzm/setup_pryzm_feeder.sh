@@ -17,7 +17,7 @@ PG_VERSION='12' # Example version, adjust based on your actual version
 PG_HBA_CONF_PATH="/etc/postgresql/${PG_VERSION}/main/pg_hba.conf"
 
 # This sed command targets lines with local connections and changes peer to trust
-# sed -i 's/local\s*all\s*postgres\s*peer/local all postgres trust/' "$PG_HBA_CONF_PATH"
+sed -i 's/local\s*all\s*postgres\s*peer/local all postgres trust/' "$PG_HBA_CONF_PATH"
 sed -i 's/local\s*all\s*all\s*peer/local all all trust/' "$PG_HBA_CONF_PATH"
 
 # Or, if using a service command is possible in your container
@@ -32,7 +32,7 @@ psql -U postgres -c "ALTER USER postgres WITH PASSWORD 'postgres';"
 psql -U postgres -d postgres -f "/pryzmfeeder/init.sql"
 
 # This sed command targets lines with local connections and changes peer to trust
-# sed -i 's/local\s*all\s*postgres\s*peer/local all postgres trust/' "$PG_HBA_CONF_PATH"
+sed -i 's/local\s*all\s*postgres\s*peer/local all postgres trust/' "$PG_HBA_CONF_PATH"
 sed -i 's/local\s*all\s*all\s*trust/local all all peer/' "$PG_HBA_CONF_PATH"
 
 # Or, if using a service command is possible in your container
