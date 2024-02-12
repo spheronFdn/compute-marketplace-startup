@@ -7,6 +7,9 @@ artelad config keyring-backend test
 artelad config node tcp://localhost:23457
 artelad init "${MONIKER}" --chain-id artela_11822-1
 
+# Explicitly create the config directory structure
+mkdir -p /home/artela/.artelad/config
+
 # Download genesis and addrbook
 curl -Ls https://snap.nodex.one/artela-testnet/genesis.json > /home/artela/.artelad/config/genesis.json
 curl -Ls https://snap.nodex.one/artela-testnet/addrbook.json > /home/artela/.artelad/config/addrbook.json
