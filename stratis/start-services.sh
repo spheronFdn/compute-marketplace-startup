@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Start Geth in the background
-/usr/local/bin/geth --datadir=data/testnet/geth --http --http.api=eth,engine,net,web3 --http.addr=0.0.0.0 --http.corsdomain=* --ws --ws.api=eth,engine,net,web3 --ws.addr=0.0.0.0 --ws.origins=* --authrpc.vhosts=* --authrpc.addr=0.0.0.0 --authrpc.jwtsecret=configs/testnet/jwtsecret --syncmode=full
+# /usr/local/bin/geth --datadir=data/testnet/geth --http --http.api=eth,engine,net,web3 --http.addr=0.0.0.0 --http.corsdomain=* --ws --ws.api=eth,engine,net,web3 --ws.addr=0.0.0.0 --ws.origins=* --authrpc.vhosts=* --authrpc.addr=0.0.0.0 --authrpc.jwtsecret=configs/testnet/jwtsecret --syncmode=full
+/usr/local/bin/geth --auroria --http --http.api eth,net,engine,admin --datadir=data/testnet/geth --authrpc.addr=127.0.0.1 --authrpc.jwtsecret=jwtsecret --syncmode=full
 
 echo "Geth Node configured and ready."
 
