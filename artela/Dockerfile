@@ -41,6 +41,6 @@ ENV UNSAFE_SKIP_BACKUP=true
 
 # Add entrypoint script
 COPY entrypoint.sh /home/artela/entrypoint.sh
-RUN sudo chmod +x /home/artela/entrypoint.sh
+RUN chmod +x /home/artela/entrypoint.sh
 
 ENTRYPOINT ["/home/artela/entrypoint.sh"]
