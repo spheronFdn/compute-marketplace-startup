@@ -34,6 +34,7 @@ RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 EXPOSE 23456 23457 23458 23460 23466 23417 23480 23490 23491
 
 # Set environment variables
+ENV PATH="/home/artela/.artelad/cosmovisor/genesis/bin:${PATH}"
 ENV DAEMON_HOME=/home/artela/.artelad
 ENV DAEMON_NAME=artelad
 ENV MONIKER=your-moniker-name
