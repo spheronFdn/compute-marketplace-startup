@@ -12,5 +12,5 @@ echo "Geth Node configured and ready."
 echo "Beacon Node configured and ready."
 
 # Keep the container running since both processes are in the background
-# wait
+wait
 
