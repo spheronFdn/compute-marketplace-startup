@@ -4,47 +4,50 @@ FROM ubuntu:20.04
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Set work directory
-WORKDIR /root
-
 # Install dependencies
-RUN apt-get update && \
-    apt-get install -y curl git jq lz4 build-essential && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update -qq && \
+    apt-get install -yqq curl git jq lz4 build-essential fail2ban ufw && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Go
-RUN curl -L https://go.dev/dl/go1.20.12.linux-amd64.tar.gz | tar -xzf - -C /usr/local
+RUN curl -Ls https://go.dev/dl/go1.20.7.linux-amd64.tar.gz | tar -xzf - -C /usr/local
+ENV PATH="${PATH}:/usr/local/go/bin"
 
-# Correctly set the PATH to include both Go binaries and workspace binaries
-ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
+# Setup non-root user 'artela'
+RUN useradd -m -s /bin/bash artela && \
+    echo 'artela ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/artela && \
+    chmod 0440 /etc/sudoers.d/artela
 
+# Switch to user 'artela'
+USER artela
+WORKDIR /home/artela
 
-# Clone artelad repository and checkout the specific version
+# Clone and build Artela project
 RUN git clone https://github.com/artela-network/artela && \
     cd artela && \
-    git checkout main && \
+    git checkout v0.4.7-rc6 && \
     make build
 
-# Prepare binaries for Cosmovisor
-RUN mkdir -p /root/.artelad/cosmovisor/genesis/bin && \
-    mv /root/artela/build/artelad /root/.artelad/cosmovisor/genesis/bin/ && \
-    rm -rf /root/artela/build
+# Prepare binaries for cosmovisor
+RUN mkdir -p .artelad/cosmovisor/genesis/bin && \
+    mv artela/build/artelad .artelad/cosmovisor/genesis/bin/ && \
+    rm -rf artela/build
 
-# # Create symlinks for the application
-RUN ln -s /root/.artelad/cosmovisor/genesis /root/.artelad/cosmovisor/current -f && \
-    ln -s /root/.artelad/cosmovisor/current/bin/artelad /usr/local/bin/artelad -f
+# Install cosmovisor
+RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
-# # Install Cosmovisor
-RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
+# Expose ports (add other ports if necessary)
+EXPOSE 23456 23457 23458 23460 23466 23417 23480 23490 23491
 
-# Copy the setup scripts and configuration files into the container
-COPY setup_node.sh /usr/local/bin/setup_node.sh
-COPY start_node.sh /usr/local/bin/start_node.sh
+# Set environment variables
+ENV DAEMON_HOME=/home/artela/.artelad
+ENV DAEMON_NAME=artelad
+ENV MONIKER=your-moniker-name
+ENV UNSAFE_SKIP_BACKUP=true
 
-# Make scripts executable
-RUN chmod +x /usr/local/bin/setup_node.sh /usr/local/bin/start_node.sh
+# Add entrypoint script
+COPY entrypoint.sh /home/artela/entrypoint.sh
+RUN sudo chmod +x /home/artela/entrypoint.sh
 
-EXPOSE 26656 26657 1317 9090 8545 8546 19211
-
-# Set the entrypoint to the start script
-ENTRYPOINT ["/usr/local/bin/start_node.sh"]
+ENTRYPOINT ["/home/artela/entrypoint.sh"]
