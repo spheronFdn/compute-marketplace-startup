@@ -1,11 +1,13 @@
 #!/bin/bash
 set -e
 
+ARTELAD_BIN="/home/artela/.artelad/cosmovisor/genesis/bin/artelad"
+
 # Initialize node configuration
-artelad config chain-id artela_11822-1
-artelad config keyring-backend test
-artelad config node tcp://localhost:23457
-artelad init "${MONIKER}" --chain-id artela_11822-1
+$ARTELAD_BIN config chain-id artela_11822-1
+$ARTELAD_BIN config keyring-backend test
+$ARTELAD_BIN config node tcp://localhost:23457
+$ARTELAD_BIN init "${MONIKER}" --chain-id artela_11822-1
 
 # Explicitly create the config directory structure
 mkdir -p /home/artela/.artelad/config
@@ -13,6 +15,9 @@ mkdir -p /home/artela/.artelad/config
 # Download genesis and addrbook
 curl -Ls https://snap.nodex.one/artela-testnet/genesis.json > /home/artela/.artelad/config/genesis.json
 curl -Ls https://snap.nodex.one/artela-testnet/addrbook.json > /home/artela/.artelad/config/addrbook.json
+
+echo "Initialization complete, checking directory contents"
+ls -la /home/artela/.artelad/config
 
 # Configure seeds
 sed -i -e "s|^seeds *=.*|seeds = \"d1d43cc7c7aef715957289fd96a114ecaa7ba756@testnet-seeds.nodex.one:23410\"|" /home/artela/.artelad/config/config.toml
