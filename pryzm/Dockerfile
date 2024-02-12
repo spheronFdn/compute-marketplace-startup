@@ -9,7 +9,7 @@ WORKDIR /root
 
 # Install dependencies
 RUN apt-get update -qq && \
-    apt-get install -y curl git jq lz4 build-essential fail2ban ufw wget && \
+    apt-get install -y curl git jq lz4 build-essential fail2ban ufw wget postgresql postgresql-contrib && \
     apt-get upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
