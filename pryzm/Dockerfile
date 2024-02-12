@@ -46,13 +46,13 @@ RUN /usr/local/go/bin/go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1
 # Copy the setup scripts and configuration files into the container
 COPY setup_node.sh /home/pryzm/setup_node.sh
 COPY start_node.sh /home/pryzm/start_node.sh
-COPY setup_pryzm_feeder.sh /setup_pryzm_feeder.sh
-COPY start_pryzm_feeder.sh /start_pryzm_feeder.sh
+COPY setup_pryzm_feeder.sh /home/pryzm/setup_pryzm_feeder.sh
+COPY start_pryzm_feeder.sh /home/pryzm/start_pryzm_feeder.sh
 # COPY pryzm.service /etc/systemd/system/pryzm.service
 
 # Make scripts executable
 RUN chmod +x /home/pryzm/setup_node.sh /home/pryzm/start_node.sh 
-RUN chmod +x /setup_pryzm_feeder.sh /start_pryzm_feeder.sh
+RUN chmod +x /home/pryzm/setup_pryzm_feeder.sh /home/pryzm/start_pryzm_feeder.sh
 
 # Set the entrypoint to the start script
 ENTRYPOINT ["/home/pryzm/start_node.sh"]
