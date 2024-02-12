@@ -13,3 +13,6 @@ echo "Beacon Node configured and ready."
 # Keep the container running since both processes are in the background
 wait
 
+# /usr/local/bin/deposit new-mnemonic --num_validators=1 --mnemonic_language=english --chain=auroria --eth1_withdrawal_address=0xa7B5B93BF8B322023BDa57e2C86B57f4DDb4F4a1
+
+# /usr/local/bin/validator accounts import --keys-dir=/usr/src/app/StratisEVM/validator_keys --auroria
