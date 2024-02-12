@@ -18,13 +18,7 @@ PG_HBA_CONF_PATH="/etc/postgresql/${PG_VERSION}/main/pg_hba.conf"
 
 # Modify pg_hba.conf to use md5 for local connections
 # This sed command targets lines with local connections and changes peer to md5
-sed -i 's/local\s*all\s*all\s*peer/local all all md5/' "$PG_HBA_CONF_PATH"
-
-# Reload PostgreSQL configuration
-# Method depends on how PostgreSQL is managed within your container. Examples:
-
-# Using pg_ctl (might require the correct PostgreSQL user or environment variables)
-pg_ctl reload
+sed -i 's/local\s*all\s*postgres\s*peer/local all postgres trust/' "$PG_HBA_CONF_PATH"
 
 # Or, if using a service command is possible in your container
 service postgresql reload
