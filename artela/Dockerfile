@@ -14,13 +14,6 @@ RUN apt-get update -qq && \
 RUN curl -Ls https://go.dev/dl/go1.20.7.linux-amd64.tar.gz | tar -xzf - -C /usr/local
 ENV PATH="${PATH}:/usr/local/go/bin"
 
-# Setup non-root user 'artela'
-RUN useradd -m -s /bin/bash artela && \
-    echo 'artela ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/artela && \
-    chmod 0440 /etc/sudoers.d/artela
-
-# Switch to user 'artela'
-USER artela
 WORKDIR /home/artela
 
 # Clone and build Artela project
