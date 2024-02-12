@@ -1,17 +1,7 @@
 #!/bin/bash
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 [your_pryzm_feeder_wallet_address]"
-    exit 1
-fi
-
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 [your_pryzm_feeder_wallet_mnemonic]"
-    exit 1
-fi
-
 if [ "$#" -ne 3 ]; then
-    echo "Usage: $0 [your_pryzm_feeder_validator]"
+    echo "Usage: $0 [your_pryzm_feeder_wallet_address] [your_pryzm_feeder_wallet_mnemonic] [your_pryzm_feeder_validator]"
     exit 1
 fi
 
