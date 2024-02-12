@@ -12,9 +12,11 @@ service postgresql start
 
 # Configure PostgreSQL
 echo "Configuring PostgreSQL..."
-psql -U postgres -h localhost -c "ALTER USER postgres WITH PASSWORD 'postgres';"
-psql -U postgres -h localhost -c "\i /pryzmfeeder/init.sql"
+# Set the PostgreSQL 'postgres' user password
+psql -U postgres -c "ALTER USER postgres WITH PASSWORD 'postgres';"
 
+# Execute the SQL initialization script
+psql -U postgres -h localhost -f "$HOME/pryzmfeeder/init.sql"
 
 # Reminder to start Pryzm Feeder manually due to Docker usage
 echo "To start Pryzm Feeder, ensure Docker is correctly set up and run the following command in the pryzmfeeder directory:"
