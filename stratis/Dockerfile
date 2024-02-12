@@ -41,7 +41,7 @@ RUN curl -L https://github.com/stratisproject/staking-deposit-cli/releases/downl
     rm staking-deposit-cli.zip
 
 # Extract the TAR file from the unzipped content to /usr/local/bin and make it executable
-RUN tar -xzf /tmp/staking-deposit-cli-linux-amd64.tar.gz -C /usr/local/bin/ && \
+RUN tar -xzf /tmp/staking-deposit-cli/staking-deposit-cli-linux-amd64.tar.gz -C /usr/local/bin/ && \
     chmod +x /usr/local/bin/deposit
 
 # Clean up the temporary files
