@@ -38,7 +38,7 @@ sed -i -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.
 sed -i -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:23217\"%; s%^address = \":8080\"%address = \":23280\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:23290\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:23291\"%; s%:8545%:23245%; s%:8546%:23246%; s%:6065%:23265%" $HOME/.pryzm/config/app.toml
 
 # Download latest chain snapshot
-curl -L https://snap.nodex.one/pryzm-testnet/pryzm-latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.pryzm
+curl -L https://testnet-files.itrocket.net/pryzm/snap_pryzm.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.pryzm
 [[ -f $HOME/.pryzm/data/upgrade-info.json ]] && cp $HOME/.pryzm/data/upgrade-info.json $HOME/.pryzm/cosmovisor/genesis/upgrade-info.json
 
 # Start the node (if applicable, or configure to start with Docker container)
@@ -65,3 +65,5 @@ echo "Setup complete. Node configured and ready."
 # --gas auto \
 # --gas-prices 0.015upryzm \
 # -y
+
+# pryzmd status 2>&1 | jq .SyncInfo
