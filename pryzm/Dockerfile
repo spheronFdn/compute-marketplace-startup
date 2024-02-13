@@ -9,18 +9,19 @@ WORKDIR /root
 
 # Install dependencies
 RUN apt-get update -qq && \
-    apt-get install -y curl git jq lz4 build-essential fail2ban ufw wget postgresql postgresql-contrib && \
+    apt-get install -y curl git jq lz4 build-essential fail2ban ufw wget && \
+    # apt-get install -y postgresql postgresql-contrib && \
     apt-get upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Update system and install dependencies
-RUN apt-get update -qq && \
-    apt-get install -y apt-transport-https ca-certificates curl software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-    apt-get update && \
-    apt-get install -y docker-ce
+# RUN apt-get update -qq && \
+#     apt-get install -y apt-transport-https ca-certificates curl software-properties-common && \
+#     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+#     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+#     apt-get update && \
+#     apt-get install -y docker-ce
 
 WORKDIR /home/pryzm
 
@@ -46,13 +47,13 @@ RUN /usr/local/go/bin/go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1
 # Copy the setup scripts and configuration files into the container
 COPY setup_node.sh /home/pryzm/setup_node.sh
 COPY start_node.sh /home/pryzm/start_node.sh
-COPY setup_pryzm_feeder.sh /home/pryzm/setup_pryzm_feeder.sh
-COPY start_pryzm_feeder.sh /home/pryzm/start_pryzm_feeder.sh
+# COPY setup_pryzm_feeder.sh /home/pryzm/setup_pryzm_feeder.sh
+# COPY start_pryzm_feeder.sh /home/pryzm/start_pryzm_feeder.sh
 # COPY pryzm.service /etc/systemd/system/pryzm.service
 
 # Make scripts executable
 RUN chmod +x /home/pryzm/setup_node.sh /home/pryzm/start_node.sh 
-RUN chmod +x /home/pryzm/setup_pryzm_feeder.sh /home/pryzm/start_pryzm_feeder.sh
+# RUN chmod +x /home/pryzm/setup_pryzm_feeder.sh /home/pryzm/start_pryzm_feeder.sh
 
 # Set the entrypoint to the start script
 ENTRYPOINT ["/home/pryzm/start_node.sh"]

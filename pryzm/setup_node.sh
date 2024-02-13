@@ -45,3 +45,23 @@ curl -L https://snap.nodex.one/pryzm-testnet/pryzm-latest.tar.lz4 | tar -Ilz4 -x
 # This part may need to be handled outside of the script for Docker deployments
 
 echo "Setup complete. Node configured and ready."
+
+
+# Wait for catching up to be false and then run this
+# pryzmd tx staking create-validator \
+# --amount 1000000upryzm \
+# --pubkey $(pryzmd tendermint show-validator) \
+# --moniker "MitraTest" \
+# --details "Cofounder & CTO @ Spheron" \
+# --website "https://spheron.network" \
+# --security-contact "mitrasish@spheron.network" \
+# --chain-id indigo-1 \
+# --commission-rate 0.05 \
+# --commission-max-rate 0.20 \
+# --commission-max-change-rate 0.01 \
+# --min-self-delegation 1 \
+# --from wallet \
+# --gas-adjustment 1.4 \
+# --gas auto \
+# --gas-prices 0.015upryzm \
+# -y
