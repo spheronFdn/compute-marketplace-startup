@@ -66,4 +66,4 @@ echo "Setup complete. Node configured and ready."
 # --gas-prices 0.015upryzm \
 # -y
 
-# pryzmd status 2>&1 | jq .SyncInfo
+# pryzmd status | jq .SyncInfo
