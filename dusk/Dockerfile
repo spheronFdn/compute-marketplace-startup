@@ -6,11 +6,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install any dependencies your script might require
 RUN apt-get update && apt-get install -y \
-    curl \
+    curl sudo unzip jq net-tools logrotate ufw \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and execute the itn-installer script directly without sudo
-RUN curl --proto '=https' --tlsv1.2 -sSfL https://github.com/dusk-network/itn-installer/releases/download/v0.1.0/itn-installer.sh | sh
+RUN curl --proto '=https' --tlsv1.2 -sSfL https://github.com/dusk-network/itn-installer/releases/download/v0.1.0/itn-installer.sh | sudo sh
 
 # Expose ports 9000 and 8080
 EXPOSE 9000 8080
