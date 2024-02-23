@@ -1,9 +1,53 @@
+worker_processes auto; # Adjusts to the number of CPU cores, 'auto' is recommended for optimal performance
+
+events {
+    worker_connections 4096; # Increase the limit of open connections per worker
+    use epoll; # Use epoll for better performance on Linux
+    multi_accept on; # Accept all new connections at once
+}
+
 http {
+    # General optimizations
+    sendfile on; # Enables high-performance file transfer
+    tcp_nopush on; # Sends HTTP response headers in one packet
+    tcp_nodelay on; # Disables the Nagle buffering algorithm
+    keepalive_timeout 65; # Keep-alive timeout
+    types_hash_max_size 2048; # Increase hash table size for types
+    server_tokens off; # Disable server tokens for security
+
+    # Client body buffer size
+    client_body_buffer_size  128k;
+    client_max_body_size 10m; # Max body size limit
+
+    # Buffer size optimizations
+    client_header_buffer_size 1k;
+    large_client_header_buffers 4 4k;
+
+    # Timeout settings
+    send_timeout 2m;
+    client_body_timeout 12;
+    client_header_timeout 12;
+
+    # Gzip Compression
+    gzip on;
+    gzip_disable "msie6";
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+    # Server configurations
     server {
         listen 10001;
 
         location / {
             proxy_pass http://localhost:${SHMINT};
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
         }
     }
 
@@ -12,8 +56,10 @@ http {
 
         location / {
             proxy_pass http://localhost:${SHMEXT};
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
         }
     }
 }
-
-events {}
