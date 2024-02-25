@@ -5,9 +5,9 @@ MONIKER=${MONIKER:-"YOUR_MONIKER_GOES_HERE"}
 # export DAEMON_HOME="/root/.lava"
 
 # Initialize the node
-# lavad config chain-id lava-testnet-2
-# lavad config keyring-backend test
-# lavad config node tcp://localhost:20457
+lavad config chain-id lava-testnet-2
+lavad config keyring-backend test
+lavad config node tcp://localhost:14457
 
 # Initialize the node
 lavad init $MONIKER --chain-id lava-testnet-2
