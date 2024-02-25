@@ -37,8 +37,8 @@ sed -i \
 # sed -i -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:20417\"%; s%^address = \":8080\"%address = \":20480\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:20490\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:20491\"%; s%:8545%:20445%; s%:8546%:20446%; s%:6065%:20465%" $DAEMON_HOME/config/app.toml
 
 # Download latest chain snapshot (optional but can speed up sync)
-curl -L https://snap.nodex.one/lava-testnet/lava-latest.tar.lz4 | tar -I lz4 -xf - -C $DAEMON_HOME
-[[ -f $DAEMON_HOME/data/upgrade-info.json ]] && cp $DAEMON_HOME/data/upgrade-info.json $DAEMON_HOME/cosmovisor/genesis/upgrade-info.json
+# curl -L https://snap.nodex.one/lava-testnet/lava-latest.tar.lz4 | tar -I lz4 -xf - -C $DAEMON_HOME
+# [[ -f $DAEMON_HOME/data/upgrade-info.json ]] && cp $DAEMON_HOME/data/upgrade-info.json $DAEMON_HOME/cosmovisor/genesis/upgrade-info.json
 
 # Start the node (if applicable, or configure to start with Docker container)
 # This part may need to be handled outside of the script for Docker deployments
