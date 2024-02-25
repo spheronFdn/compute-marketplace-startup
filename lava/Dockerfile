@@ -22,7 +22,7 @@ ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 RUN cd $HOME && \
     git clone https://github.com/lavanet/lava.git && \
     cd lava && \
-    git checkout v0.32.0 && \
+    git checkout v0.35.1 && \
     export LAVA_BINARY=lavad && \
     make build && \
     mkdir -p /root/.lava/cosmovisor/genesis/bin && \

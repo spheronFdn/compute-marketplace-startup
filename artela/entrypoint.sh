@@ -40,5 +40,8 @@ sed -i -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:23417\"
           s%:8546%:23446%; \
           s%:6065%:23465%" $DAEMON_HOME/config/app.toml
 
+          snap=$(curl -s https://snapshots.theamsolutions.info/ | egrep -o ">artela-snap.tar" | tr -d ">")
+wget -P $HOME https://snapshots.theamsolutions.info/$%7Bsnap%7D
+
 # Start cosmovisor
 cosmovisor run start
