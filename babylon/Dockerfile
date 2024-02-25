@@ -9,11 +9,11 @@ WORKDIR /root
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y curl git jq lz4 build-essential && \
+    apt-get install -y curl git jq lz4 wget build-essential && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Go
-RUN curl -L https://go.dev/dl/go1.20.12.linux-amd64.tar.gz | tar -xzf - -C /usr/local
+RUN curl -L https://go.dev/dl/go1.22.0.linux-amd64.tar.gz | tar -xzf - -C /usr/local
 
 # Correctly set the PATH to include both Go binaries and workspace binaries
 ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"

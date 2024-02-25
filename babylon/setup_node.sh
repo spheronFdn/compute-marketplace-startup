@@ -4,35 +4,34 @@
 MONIKER=${MONIKER:-"YOUR_MONIKER_GOES_HERE"}
 
 # Set node configuration
-babylond config chain-id bbn-test-2
+babylond config chain-id bbn-test-3
 babylond config keyring-backend test
 babylond config node tcp://localhost:16457
 
 # Initialize the node
-babylond init "$MONIKER" --chain-id bbn-test-2
+babylond init "$MONIKER" --chain-id bbn-test-3
 
 # Download genesis and addrbook
-curl -Ls https://snapshots.kjnodes.com/babylon-testnet/genesis.json > $HOME/.babylond/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/babylon-testnet/addrbook.json > $HOME/.babylond/config/addrbook.json
+wget https://github.com/babylonchain/networks/raw/main/bbn-test-3/genesis.tar.bz2
+tar -xjf genesis.tar.bz2 && rm genesis.tar.bz2
+mv genesis.json ~/.babylond/config/genesis.json
 
 # Add seeds
-sed -i -e "s|^seeds *=.*|seeds = \"3f472746f46493309650e5a033076689996c8881@babylon-testnet.rpc.kjnodes.com:16459\"|" $HOME/.babylond/config/config.toml
+sed -i -e "s|^seeds *=.*|seeds = \"49b4685f16670e784a0fe78f37cd37d56c7aff0e@3.14.89.82:26656,9cb1974618ddd541c9a4f4562b842b96ffaf1446@3.16.63.237:26656\"|" $HOME/.babylond/config/config.toml
 
 # Set minimum gas price
 sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.00001ubbn\"|" $HOME/.babylond/config/app.toml
 
-# Set pruning options
+# Switch to signet
+sed -i -e "s|^network *=.*|network = \"signet\"|" $HOME/.babylond/config/app.toml
+
+# Set pruning
 sed -i \
   -e 's|^pruning *=.*|pruning = "custom"|' \
   -e 's|^pruning-keep-recent *=.*|pruning-keep-recent = "100"|' \
   -e 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|' \
-  -e 's|^pruning-interval *=.*|pruning-interval = "10"|' \
+  -e 's|^pruning-interval *=.*|pruning-interval = "19"|' \
   $HOME/.babylond/config/app.toml
-
-# Set custom ports for various services
-sed -i -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:16458\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:16457\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:16460\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:16456\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":16466\"%" $HOME/.babylond/config/config.toml
-sed -i -e "s%^address = \"tcp://localhost:1317\"%address = \"tcp://0.0.0.0:16417\"%; s%^address = \":8080\"%address = \":16480\"%; s%^address = \"localhost:9090\"%address = \"0.0.0.0:16490\"%; s%^address = \"localhost:9091\"%address = \"0.0.0.0:16491\"%; s%:8545%:16445%; s%:8546%:16446%; s%:6065%:16465%" $HOME/.babylond/config/app.toml
-
 
 # Download latest chain snapshot
 curl -L https://snapshots.kjnodes.com/babylon-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.babylond
