@@ -22,7 +22,7 @@ ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 RUN cd $HOME && \
     git clone https://github.com/lavanet/lava.git && \
     cd lava && \
-    git checkout v0.35.1 && \
+    git checkout v0.35.0 && \
     export LAVA_BINARY=lavad && \
     make build && \
     mkdir -p /root/.lava/cosmovisor/genesis/bin && \
@@ -34,7 +34,7 @@ RUN ln -s /root/.lava/cosmovisor/genesis /root/.lava/cosmovisor/current -f && \
     ln -s /root/.lava/cosmovisor/current/bin/lavad /usr/local/bin/lavad -f
 
 # Install Cosmovisor
-RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
+RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
 # Expose necessary ports (replace with actual ports used by your application)
 EXPOSE 20457 20456 20458 20460 20466 20417 20480 20490 20491 20445 20446 20465
