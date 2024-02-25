@@ -13,7 +13,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Go
-RUN curl -L https://go.dev/dl/go1.20.12.linux-amd64.tar.gz | tar -xzf - -C /usr/local
+RUN curl -L https://go.dev/dl/go1.20.14.linux-amd64.tar.gz | tar -xzf - -C /usr/local
 
 # Correctly set the PATH to include both Go binaries and workspace binaries
 ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
