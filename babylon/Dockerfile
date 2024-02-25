@@ -18,7 +18,6 @@ RUN curl -L https://go.dev/dl/go1.22.0.linux-amd64.tar.gz | tar -xzf - -C /usr/l
 # Correctly set the PATH to include both Go binaries and workspace binaries
 ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 
-
 # Clone Babylon repository and checkout the specific version
 RUN git clone https://github.com/babylonchain/babylon.git && \
     cd babylon && \

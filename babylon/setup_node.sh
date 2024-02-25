@@ -3,11 +3,6 @@
 # Set the moniker
 MONIKER=${MONIKER:-"YOUR_MONIKER_GOES_HERE"}
 
-# Set node configuration
-babylond config chain-id bbn-test-3
-babylond config keyring-backend test
-babylond config node tcp://localhost:16457
-
 # Initialize the node
 babylond init "$MONIKER" --chain-id bbn-test-3
 
@@ -34,8 +29,8 @@ sed -i \
   $HOME/.babylond/config/app.toml
 
 # Download latest chain snapshot
-curl -L https://snapshots.kjnodes.com/babylon-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.babylond
-[[ -f $HOME/.babylond/data/upgrade-info.json ]] && cp $HOME/.babylond/data/upgrade-info.json $HOME/.babylond/cosmovisor/genesis/upgrade-info.json
+# curl -L https://snapshots.kjnodes.com/babylon-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.babylond
+# [[ -f $HOME/.babylond/data/upgrade-info.json ]] && cp $HOME/.babylond/data/upgrade-info.json $HOME/.babylond/cosmovisor/genesis/upgrade-info.json
 
 # Start the node (if applicable, or configure to start with Docker container)
 # This part may need to be handled outside of the script for Docker deployments
