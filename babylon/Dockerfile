@@ -22,7 +22,7 @@ ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 # Clone Babylon repository and checkout the specific version
 RUN git clone https://github.com/babylonchain/babylon.git && \
     cd babylon && \
-    git checkout v0.7.2 && \
+    git checkout v0.8.3 && \
     make build
 
 # Prepare binaries for Cosmovisor
