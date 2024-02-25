@@ -1,58 +1,50 @@
-# Use Ubuntu as the base image
+# Use a base image that includes Ubuntu with necessary tools
 FROM ubuntu:20.04
 
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Set work directory
-WORKDIR /root
-
-# Install dependencies
-RUN apt-get update -qq && \
-    apt-get install -y curl git jq lz4 build-essential fail2ban ufw wget && \
-    # apt-get install -y postgresql postgresql-contrib && \
+# Update and install dependencies
+RUN apt-get update && \
+    apt-get install -y curl git jq lz4 build-essential fail2ban ufw && \
     apt-get upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Update system and install dependencies
-# RUN apt-get update -qq && \
-#     apt-get install -y apt-transport-https ca-certificates curl software-properties-common && \
-#     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
-#     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-#     apt-get update && \
-#     apt-get install -y docker-ce
-
-WORKDIR /home/pryzm
-
 # Install Go
+ENV GOLANG_VERSION=1.20.10
 RUN rm -rf /usr/local/go && \
-    curl -Ls https://go.dev/dl/go1.20.10.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
-eval $(echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh)
-eval $(echo 'export PATH=$PATH:$HOME/go/bin' | tee -a $HOME/.profile)
+    curl -Ls https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz | tar -xzf - -C /usr/local && \
+    echo 'export PATH=$PATH:/usr/local/go/bin' > /etc/profile.d/golang.sh && \
+    echo 'export PATH=$PATH:$HOME/go/bin' >> $HOME/.profile
 
-# Download and prepare pryzm binaries
-RUN wget https://storage.googleapis.com/pryzm-zone/core/0.11.1/pryzmd-0.11.1-linux-amd64 && \
-    mv pryzmd-0.11.1-linux-amd64 pryzmd && \
-    chmod +x pryzmd && \
-    mkdir -p $HOME/.pryzm/cosmovisor/genesis/bin && \
-    mv pryzmd $HOME/.pryzm/cosmovisor/genesis/bin/ && \
-    echo 'export PATH=$PATH:$HOME/.pryzm/cosmovisor/genesis/bin' >> $HOME/.profile
+# Set environment variables needed for our image
+ENV PATH="${PATH}:/usr/local/go/bin:$HOME/go/bin"
+ENV MONIKER=your-moniker-name
+ENV DAEMON_HOME=/root/.lava
+ENV DAEMON_NAME=lavad
+ENV UNSAFE_SKIP_BACKUP=true
 
+# Clone and build the lava project
+RUN cd $HOME && \
+    git clone https://github.com/lavanet/lava.git && \
+    cd lava && \
+    git checkout v0.32.0 && \
+    export LAVA_BINARY=lavad && \
+    make build && \
+    mkdir -p /root/.lava/cosmovisor/genesis/bin && \
+    mv build/lavad /root/.lava/cosmovisor/genesis/bin/ && \
+    rm -rf build
 
-# Install Cosmovisor
+# Install cosmovisor
 RUN /usr/local/go/bin/go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
-# Copy the setup scripts and configuration files into the container
-COPY setup_node.sh /home/pryzm/setup_node.sh
-COPY start_node.sh /home/pryzm/start_node.sh
-# COPY setup_pryzm_feeder.sh /home/pryzm/setup_pryzm_feeder.sh
-# COPY start_pryzm_feeder.sh /home/pryzm/start_pryzm_feeder.sh
-# COPY pryzm.service /etc/systemd/system/pryzm.service
+# Prepare configuration and data
+COPY setup.sh /setup.sh
+RUN chmod +x /setup.sh && /setup.sh
 
-# Make scripts executable
-RUN chmod +x /home/pryzm/setup_node.sh /home/pryzm/start_node.sh 
-# RUN chmod +x /home/pryzm/setup_pryzm_feeder.sh /home/pryzm/start_pryzm_feeder.sh
+# Expose necessary ports (replace with actual ports used by your application)
+EXPOSE 20457 20456 20458 20460 20466 20417 20480 20490 20491 20445 20446 20465
 
-# Set the entrypoint to the start script
-ENTRYPOINT ["/home/pryzm/start_node.sh"]
+# Command to run the application
+CMD ["cosmovisor", "run", "start"]
