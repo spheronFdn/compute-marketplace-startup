@@ -4,26 +4,19 @@ FROM ubuntu:20.04
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Update and install dependencies
+# Set work directory
+WORKDIR /root
+
+# Install dependencies
 RUN apt-get update && \
-    apt-get install -y curl git jq lz4 build-essential fail2ban ufw && \
-    apt-get upgrade -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    apt-get install -y curl git jq lz4 build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install Go
-ENV GOLANG_VERSION=1.20.10
-RUN rm -rf /usr/local/go && \
-    curl -Ls https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz | tar -xzf - -C /usr/local && \
-    echo 'export PATH=$PATH:/usr/local/go/bin' > /etc/profile.d/golang.sh && \
-    echo 'export PATH=$PATH:$HOME/go/bin' >> $HOME/.profile
+RUN curl -L https://go.dev/dl/go1.20.12.linux-amd64.tar.gz | tar -xzf - -C /usr/local
 
-# Set environment variables needed for our image
-ENV PATH="${PATH}:/usr/local/go/bin:$HOME/go/bin"
-ENV MONIKER=your-moniker-name
-ENV DAEMON_HOME=/root/.lava
-ENV DAEMON_NAME=lavad
-ENV UNSAFE_SKIP_BACKUP=true
+# Correctly set the PATH to include both Go binaries and workspace binaries
+ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 
 # Clone and build the lava project
 RUN cd $HOME && \
@@ -36,15 +29,22 @@ RUN cd $HOME && \
     mv build/lavad /root/.lava/cosmovisor/genesis/bin/ && \
     rm -rf build
 
-# Install cosmovisor
-RUN /usr/local/go/bin/go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
+# Create symlinks for the application
+RUN ln -s /root/.lava/cosmovisor/genesis /root/.lava/cosmovisor/current -f && \
+    ln -s /root/.lava/cosmovisor/current/bin/lavad /usr/local/bin/lavad -f
 
-# Prepare configuration and data
-COPY setup.sh /setup.sh
-RUN chmod +x /setup.sh && /setup.sh
+# Install Cosmovisor
+RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
 
 # Expose necessary ports (replace with actual ports used by your application)
 EXPOSE 20457 20456 20458 20460 20466 20417 20480 20490 20491 20445 20446 20465
 
-# Command to run the application
-CMD ["cosmovisor", "run", "start"]
+# Copy the setup scripts and configuration files into the container
+COPY setup_node.sh /usr/local/bin/setup_node.sh
+COPY start_node.sh /usr/local/bin/start_node.sh
+
+# Make scripts executable
+RUN chmod +x /usr/local/bin/setup_node.sh /usr/local/bin/start_node.sh
+
+# Set the entrypoint to the start script
+ENTRYPOINT ["/usr/local/bin/start_node.sh"]

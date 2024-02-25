@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Setting up environment variables
-export MONIKER="${MONIKER:-myNode}"
+MONIKER=${MONIKER:-"YOUR_MONIKER_GOES_HERE"}
 export DAEMON_HOME="/root/.lava"
-export DAEMON_NAME="lavad"
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$DAEMON_HOME/cosmovisor/current/bin"
 
 # Initialize the node
 lavad config chain-id lava-testnet-2
 lavad config keyring-backend test
 lavad config node tcp://localhost:20457
+
+# Initialize the node
 lavad init $MONIKER --chain-id lava-testnet-2
 
 # Download genesis and addrbook
@@ -39,3 +39,7 @@ sed -i -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:20417\"
 # Download latest chain snapshot (optional but can speed up sync)
 curl -L https://snap.nodex.one/lava-testnet/lava-latest.tar.lz4 | tar -I lz4 -xf - -C $DAEMON_HOME
 [[ -f $DAEMON_HOME/data/upgrade-info.json ]] && cp $DAEMON_HOME/data/upgrade-info.json $DAEMON_HOME/cosmovisor/genesis/upgrade-info.json
+
+# Start the node (if applicable, or configure to start with Docker container)
+# This part may need to be handled outside of the script for Docker deployments
+echo "Setup complete. Node configured and ready."
