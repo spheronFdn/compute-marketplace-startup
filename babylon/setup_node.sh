@@ -14,10 +14,10 @@ wget -O addrbook.json https://snapshots.polkachu.com/testnet-addrbook/babylon/ad
 mv addrbook.json ~/.babylond/config
 
 # Add seeds
-PEERS=e8f550ed3fea54eda7fa3f8ed3d6b17cb222fedf@95.111.239.100:26656,82191d0763999d30e3ddf96cc366b78694d8cee1@162.19.169.211:26656,49b15e202497c231ebe7b2a56bb46cfc60eff78c@135.181.134.151:46656,c0ee3e7f140b2de189ce853cfccb9fb2d922eb66@95.217.203.226:26656,4dbf5157b735de59fb84be26f2bd40a16cee056c@54.238.212.246:26656
-sed -i -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.babylond/config/config.toml
+PEERS=86eecc48c181a2e508852f6f3a170b99a09cae87@74.208.197.25:26656,f887f4a18019563bcf3fc23079eb68b86931a766@37.60.226.84:16456,e27df9014fd0d37d917fb33f2d9de7500a8fab70@35.91.9.184:26656,3fb6251a235480e81c8f964ff25304b2b4e7a071@43.128.69.178:26501,bfff3794fa6f5238c71151b57786a4a28f2afc5b@5.181.51.159:26656
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.babylond/config/config.toml
 
-sed -i -e "s|^seeds *=.*|seeds = \"49b4685f16670e784a0fe78f37cd37d56c7aff0e@3.14.89.82:26656,9cb1974618ddd541c9a4f4562b842b96ffaf1446@3.16.63.237:26656\"|" $HOME/.babylond/config/config.toml
+sed -i -e "s|^seeds *=.*|seeds = \"ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:20656\"|" $HOME/.babylond/config/config.toml
 
 # Set minimum gas price
 sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.00001ubbn\"|" $HOME/.babylond/config/app.toml
