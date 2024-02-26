@@ -4,9 +4,9 @@ FROM ubuntu:latest
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install essential components, including pkg-config and libssl-dev
+# Install essential components, including pkg-config, libssl-dev, clang, and libclang-dev
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y screen git curl build-essential pkg-config libssl-dev
+    apt-get install -y screen git curl build-essential pkg-config libssl-dev clang libclang-dev
 
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
