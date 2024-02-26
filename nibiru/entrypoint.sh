@@ -4,13 +4,13 @@
 set -e
 
 # Check if the MONIKER_NAME environment variable is set
-if [ -z "$MONIKER_NAME" ]; then
-  echo "MONIKER_NAME environment variable is not set."
+if [ -z "$MONIKER" ]; then
+  echo "MONIKER environment variable is not set."
   exit 1
 fi
 
 # Initialize the chain with the provided moniker name
-nibid init $MONIKER_NAME --chain-id=$NETWORK --home $HOME/.nibid
+nibid init $MONIKER --chain-id=$NETWORK --home $HOME/.nibid
 
 # Copy the genesis file
 curl -s https://networks.testnet.nibiru.fi/$NETWORK/genesis > $HOME/.nibid/config/genesis.json
