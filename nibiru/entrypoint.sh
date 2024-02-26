@@ -9,6 +9,7 @@ if [ -z "$MONIKER" ]; then
   exit 1
 fi
 
+nibid config chain-id $NETWORK
 # Initialize the chain with the provided moniker name
 nibid init $MONIKER --chain-id=$NETWORK --home $HOME/.nibid
 
