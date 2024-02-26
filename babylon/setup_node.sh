@@ -34,9 +34,11 @@ sed -i \
   $HOME/.babylond/config/app.toml
 
 # Download latest chain snapshot
-curl -L https://snapshots.polkachu.com/testnet-snapshots/babylon/babylon_44206.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.babylond
-[[ -f $HOME/.babylond/data/upgrade-info.json ]] && cp $HOME/.babylond/data/upgrade-info.json $HOME/.babylond/cosmovisor/genesis/upgrade-info.json
+# curl -L https://snapshots.polkachu.com/testnet-snapshots/babylon/babylon_44206.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.babylond
+# [[ -f $HOME/.babylond/data/upgrade-info.json ]] && cp $HOME/.babylond/data/upgrade-info.json $HOME/.babylond/cosmovisor/genesis/upgrade-info.json
 
+wget -O babylon_47173.tar.lz4 https://snapshots.polkachu.com/testnet-snapshots/babylon/babylon_47173.tar.lz4 --inet4-only
+lz4 -c -d babylon_47173.tar.lz4  | tar -x -C $HOME/.babylond
 # Start the node (if applicable, or configure to start with Docker container)
 # This part may need to be handled outside of the script for Docker deployments
 
