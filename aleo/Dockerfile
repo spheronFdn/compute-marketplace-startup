@@ -21,7 +21,4 @@ RUN ./build_ubuntu.sh && \
     cargo install --path .
 
 # Copy the entry point script into the container
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["tail", "-f", "/dev/null"]
