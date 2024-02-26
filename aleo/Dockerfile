@@ -20,5 +20,7 @@ WORKDIR /snarkOS
 RUN ./build_ubuntu.sh && \
     cargo install --path .
 
+EXPOSE 4130
+
 # Copy the entry point script into the container
 CMD ["tail", "-f", "/dev/null"]
