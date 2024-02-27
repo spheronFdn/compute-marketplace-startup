@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $HOME/.bashrc 
+. $HOME/.bashrc 
 
 # Run the command and capture the output
 OUTPUT=$(fuel-core-keygen new --key-type peering | tee fuel-key.txt)

@@ -16,6 +16,7 @@ RUN curl https://install.fuel.network | sh && \
 RUN curl -L -o chainConfig.json https://github.com/FuelLabs/fuel-core/blob/v0.22.0/deployment/scripts/chainspec/beta_chainspec.json
 
 ADD ./peering-setup.sh /peering-setup.sh
+RUN chmod +x /peering-setup.sh
 
 # Expose ports for the node
 EXPOSE 4000 30333
