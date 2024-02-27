@@ -22,7 +22,7 @@ RUN chmod +x /peering-setup.sh
 EXPOSE 4000 30333
 
 # Use ENTRYPOINT to run the fuel-core
-ENTRYPOINT ["/bin/bash", "-c", "source $HOME/.bashrc && sh /peering-setup.sh && fuel-core run --service-name $SERVICE_NAME --keypair $P2P_SECRET --relayer $ETH_RPC_ENDPOINT --ip 0.0.0.0 --port 4000 --peering-port 30333 --db-path  ~/.fuel_beta5 --chain ./chainConfig.json --utxo-validation --poa-instant false --enable-p2p --min-gas-price 1 --max-block-size 18874368  --max-transmit-size 18874368 --reserved-nodes /dns4/p2p-beta-5.fuel.network/tcp/30333/p2p/16Uiu2HAmSMqLSibvGCvg8EFLrpnmrXw1GZ2ADX3U2c9ttQSvFtZX,/dns4/p2p-beta-5.fuel.network/tcp/30334/p2p/16Uiu2HAmVUHZ3Yimoh4fBbFqAb3AC4QR1cyo8bUF4qyi8eiUjpVP --sync-header-batch-size 100 --enable-relayer --relayer-v2-listening-contracts 0x557c5cE22F877d975C2cB13D0a961a182d740fD5 --relayer-da-deploy-height 4867877 --relayer-log-page-size 2000"]
+ENTRYPOINT ["/bin/bash", "-c", "source $HOME/.bashrc && sh /peering-setup.sh && P2P_SECRET=$(cat /tmp/p2p_secret.txt) && fuel-core run --service-name $SERVICE_NAME --keypair $P2P_SECRET --relayer $ETH_RPC_ENDPOINT --ip 0.0.0.0 --port 4000 --peering-port 30333 --db-path  ~/.fuel_beta5 --chain ./chainConfig.json --utxo-validation --poa-instant false --enable-p2p --min-gas-price 1 --max-block-size 18874368  --max-transmit-size 18874368 --reserved-nodes /dns4/p2p-beta-5.fuel.network/tcp/30333/p2p/16Uiu2HAmSMqLSibvGCvg8EFLrpnmrXw1GZ2ADX3U2c9ttQSvFtZX,/dns4/p2p-beta-5.fuel.network/tcp/30334/p2p/16Uiu2HAmVUHZ3Yimoh4fBbFqAb3AC4QR1cyo8bUF4qyi8eiUjpVP --sync-header-batch-size 100 --enable-relayer --relayer-v2-listening-contracts 0x557c5cE22F877d975C2cB13D0a961a182d740fD5 --relayer-da-deploy-height 4867877 --relayer-log-page-size 2000"]
 
 # /bin/bash
 # -c

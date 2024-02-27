@@ -9,6 +9,6 @@ OUTPUT=$(fuel-core-keygen new --key-type peering | tee fuel-key.txt)
 SECRET=$(echo $OUTPUT | jq -r '.secret')
 
 # Export the secret to a file
-export P2P_SECRET="$SECRET"
+echo "$SECRET" > /tmp/p2p_secret.txt
 
 echo "Set P2P_SECRET=$SECRET"
