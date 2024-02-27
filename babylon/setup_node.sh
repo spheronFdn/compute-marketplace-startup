@@ -3,10 +3,6 @@
 # Set the moniker
 MONIKER=${MONIKER:-"YOUR_MONIKER_GOES_HERE"}
 
-babylond config set chain-id bbn-test-3
-babylond config set keyring-backend test
-babylond config set node tcp://localhost:16457
-
 # Initialize the node
 babylond init "$MONIKER" --chain-id bbn-test-3
 
