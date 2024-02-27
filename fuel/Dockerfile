@@ -13,7 +13,7 @@ RUN curl https://install.fuel.network | sh && \
     . $HOME/.bashrc
 
 # Download the chainConfig.json file from the provided URL
-RUN curl -L -o chainConfig.json https://github.com/FuelLabs/fuel-core/blob/v0.22.0/deployment/scripts/chainspec/beta_chainspec.json
+RUN curl -L -o chainConfig.json https://raw.githubusercontent.com/FuelLabs/fuel-core/v0.22.0/deployment/scripts/chainspec/beta_chainspec.json
 
 ADD ./peering-setup.sh /peering-setup.sh
 RUN chmod +x /peering-setup.sh
