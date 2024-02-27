@@ -55,3 +55,6 @@ curl -L https://snapshots.kjnodes.com/lava-testnet/snapshot_latest.tar.lz4 | tar
 # Start the node (if applicable, or configure to start with Docker container)
 # This part may need to be handled outside of the script for Docker deployments
 echo "Setup complete. Node configured and ready."
+
+
+# lavad tx staking create-validator --amount 20000000ulava --pubkey $(lavad tendermint show-validator) --moniker "MitraLavaTest" --details "Cofounder & CTO @ Spheron" --website "https://spheron.network" --chain-id lava-testnet-2 --commission-rate 0.05 --commission-max-rate 0.20 --commission-max-change-rate 0.01 --min-self-delegation 1 --from wallet --gas-adjustment 1.4 --gas auto --gas-prices 0ulava -y
