@@ -34,7 +34,7 @@ RUN ln -s /root/.babylond/cosmovisor/genesis /root/.babylond/cosmovisor/current 
     ln -s /root/.babylond/cosmovisor/current/bin/babylond /usr/local/bin/babylond -f
 
 # Install Cosmovisor
-RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
+RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@latest
 
 # Copy the setup scripts and configuration files into the container
 COPY setup_node.sh /usr/local/bin/setup_node.sh
