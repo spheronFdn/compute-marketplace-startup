@@ -9,6 +9,22 @@ RUN apt-get update && apt-get install -y \
     curl sudo unzip jq net-tools logrotate ufw \
     && rm -rf /var/lib/apt/lists/*
 
+# Install systemd
+RUN apt-get update && apt-get install -y systemd systemd-sysv
+
+# Remove unnecessary systemd services.
+RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+    rm -f /lib/systemd/system/multi-user.target.wants/*;\
+    rm -f /etc/systemd/system/*.wants/*;\
+    rm -f /lib/systemd/system/local-fs.target.wants/*; \
+    rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+    rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+    rm -f /lib/systemd/system/basic.target.wants/*;\
+    rm -f /lib/systemd/system/anaconda.target.wants/*;
+
+# Allow systemd to run in a container
+ENV container docker
+
 # Download and execute the itn-installer script directly without sudo
 RUN curl --proto '=https' --tlsv1.2 -sSfL https://github.com/dusk-network/itn-installer/releases/download/v0.1.0/itn-installer.sh | sudo sh
 
