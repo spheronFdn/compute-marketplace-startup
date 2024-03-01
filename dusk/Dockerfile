@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install any dependencies your script might require
 RUN apt-get update && apt-get install -y \
-    curl sudo unzip jq net-tools logrotate ufw \
+    curl sudo unzip jq net-tools logrotate ufw dnsutils \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and execute the itn-installer script directly without sudo
