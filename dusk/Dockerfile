@@ -18,7 +18,7 @@ ADD start_dusk.sh /start_dusk.sh
 RUN chmod +x /start_node.sh /start_dusk.sh
 
 # Set the user to 'dusk'
-USER dusk
+# USER dusk
 
 # Expose ports 9000 and 8080
 EXPOSE 9000 8080
