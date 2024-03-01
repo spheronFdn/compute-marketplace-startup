@@ -12,8 +12,12 @@ RUN apt-get update && apt-get install -y \
 # Download and execute the itn-installer script directly without sudo
 RUN curl --proto '=https' --tlsv1.2 -sSfL https://github.com/dusk-network/itn-installer/releases/download/v0.1.0/itn-installer.sh | sudo sh
 
+
+ADD start_node.sh /start_node.sh
+RUN chmod +x /start_node.sh
+
 # Expose ports 9000 and 8080
 EXPOSE 9000 8080
 
 # The container does not need a specific command to run, but you could use a command to keep it running, such as:
-CMD ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["/start_node.sh"]
