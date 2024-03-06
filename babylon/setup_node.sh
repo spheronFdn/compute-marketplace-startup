@@ -33,4 +33,8 @@ sed -i \
   $HOME/.babylond/config/app.toml
 
 
+# Download latest chain data snapshot
+curl "https://snapshots-testnet.nodejumper.io/babylon-testnet/babylon-testnet_latest.tar.lz4" | lz4 -dc - | tar -xf - -C "$HOME/.babylond"
+
+
 echo "Setup complete. Node configured and ready."
