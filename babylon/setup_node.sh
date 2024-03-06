@@ -3,6 +3,11 @@
 # Set the moniker
 MONIKER=${MONIKER:-"YOUR_MONIKER_GOES_HERE"}
 
+# Set node CLI configuration
+babylond config set client chain-id bbn-test-3
+babylond config set client keyring-backend test
+babylond config set client node tcp://localhost:20657
+
 # Initialize the node
 babylond init "$MONIKER" --chain-id bbn-test-3
 
@@ -32,6 +37,9 @@ sed -i \
   -e 's|^pruning-interval *=.*|pruning-interval = "10"|' \
   $HOME/.babylond/config/app.toml
 
+# Change ports
+sed -i -e "s%:1317%:20617%; s%:8080%:20680%; s%:9090%:20690%; s%:9091%:20691%; s%:8545%:20645%; s%:8546%:20646%; s%:6065%:20665%" $HOME/.babylond/config/app.toml
+sed -i -e "s%:26658%:20658%; s%:26657%:20657%; s%:6060%:20660%; s%:26656%:20656%; s%:26660%:20661%" $HOME/.babylond/config/config.toml
 
 # Download latest chain data snapshot
 curl "https://snapshots-testnet.nodejumper.io/babylon-testnet/babylon-testnet_latest.tar.lz4" | lz4 -dc - | tar -xf - -C "$HOME/.babylond"
