@@ -11,10 +11,9 @@ babylond config set client node tcp://localhost:20657
 # Initialize the node
 babylond init "$MONIKER" --chain-id bbn-test-3
 
-# Get genesis file:
-wget https://github.com/babylonchain/networks/raw/main/bbn-test-3/genesis.tar.bz2
-tar -xjf genesis.tar.bz2 && rm genesis.tar.bz2
-mv genesis.json ~/.babylond/config/genesis.json
+# Download genesis and addrbook files
+curl -L https://snapshots-testnet.nodejumper.io/babylon-testnet/genesis.json > $HOME/.babylond/config/genesis.json
+curl -L https://snapshots-testnet.nodejumper.io/babylon-testnet/addrbook.json > $HOME/.babylond/config/addrbook.json
 
 # Add seeds
 sed -i -e "s|^seeds *=.*|seeds = \"49b4685f16670e784a0fe78f37cd37d56c7aff0e@3.14.89.82:26656,9cb1974618ddd541c9a4f4562b842b96ffaf1446@3.16.63.237:26656\"|" $HOME/.babylond/config/config.toml
@@ -27,8 +26,8 @@ sed -i -e "s|^network *=.*|network = \"signet\"|" $HOME/.babylond/config/app.tom
 sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.00001ubbn\"|" $HOME/.babylond/config/app.toml
 
 # Set peers:
-PEERS="cac4a3199ab2f361eb86ee445a0c2d3f8ab5a5dd@62.171.154.184:26656,59b484e1370f211ba74f5b8e1316a0752a55d090@65.108.75.197:26656,11a40047f142b07119b29262da9f7800640b0699@88.217.142.242:16456,434cbf7c51cf082bb92fca773bd12d5ccd7b1e44@109.199.119.227:26656,2af11b08ea816acb95d4de33c3de07a32c1cc801@82.208.20.66:26656"
-sed -i 's|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.babylond/config/config.toml
+# PEERS="cac4a3199ab2f361eb86ee445a0c2d3f8ab5a5dd@62.171.154.184:26656,59b484e1370f211ba74f5b8e1316a0752a55d090@65.108.75.197:26656,11a40047f142b07119b29262da9f7800640b0699@88.217.142.242:16456,434cbf7c51cf082bb92fca773bd12d5ccd7b1e44@109.199.119.227:26656,2af11b08ea816acb95d4de33c3de07a32c1cc801@82.208.20.66:26656"
+# sed -i 's|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.babylond/config/config.toml
 
 sed -i \
   -e 's|^pruning *=.*|pruning = "custom"|' \
