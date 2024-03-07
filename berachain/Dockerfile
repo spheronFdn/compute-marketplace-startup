@@ -9,7 +9,7 @@ WORKDIR /root
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y curl git jq lz4 wget build-essential && \
+    apt-get install -y curl git jq lz4 wget build-essential source && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Go
