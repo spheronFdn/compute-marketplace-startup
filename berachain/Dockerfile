@@ -13,7 +13,7 @@ RUN wget https://golang.org/dl/go1.21.4.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.21.4.linux-amd64.tar.gz
 
 # Add Go to PATH
-ENV PATH="${PATH}:/usr/local/go/bin"
+ENV PATH="/root/.foundry/bin:${PATH}"
 
 # Download and execute the script from Foundry Paradigm, and install Foundry
 RUN curl -L https://foundry.paradigm.xyz | bash && \
