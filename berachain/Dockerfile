@@ -29,7 +29,7 @@ RUN cd /root && \
 # EXPOSE <port>
 
 # Set the working directory to Polaris
-WORKDIR /root/polaris
+# WORKDIR /root/polaris
 
 # Command to start the Polaris node
 CMD ["make", "start"]
