@@ -22,7 +22,7 @@ ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 RUN git clone https://github.com/sideprotocol/sidechain.git && \
     cd sidechain && \
     git checkout v0.6.0 && \
-    make install
+    make build
 
 # Prepare binaries for Cosmovisor
 RUN mkdir -p /root/.side/cosmovisor/genesis/bin && \
