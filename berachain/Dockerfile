@@ -1,31 +1,35 @@
-# Use Ubuntu as the base image
-FROM ubuntu:20.04
+# Use an official Ubuntu base image
+FROM ubuntu:latest
 
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Set work directory
-WORKDIR /root
+# Run updates and install dependencies
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y git make screen jq wget curl
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y curl git jq lz4 wget build-essential && \
-    rm -rf /var/lib/apt/lists/*
+# Download and install Go
+RUN wget https://golang.org/dl/go1.21.4.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.21.4.linux-amd64.tar.gz
 
-# Install Go
-RUN curl -L https://go.dev/dl/go1.21.4.linux-amd64.tar.gz | tar -xzf - -C /usr/local
+# Add Go to PATH
+ENV PATH="${PATH}:/usr/local/go/bin"
 
-# Correctly set the PATH to include both Go binaries and workspace binaries
-ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
-
+# Download and execute the script from Foundry Paradigm, and install Foundry
 RUN curl -L https://foundry.paradigm.xyz | bash && \
-    . /root/.bashrc && \
-    foundryup
+    /root/.foundry/bin/foundryup
 
-# Clone Babylon repository and checkout the specific version
-RUN git clone https://github.com/berachain/polaris && \
+# Clone the Polaris repository
+RUN cd /root && \
+    git clone https://github.com/berachain/polaris && \
     cd polaris && \
     git checkout main
 
-# Set the entrypoint to the start script
+# Expose ports if necessary (depends on the application)
+# EXPOSE <port>
+
+# Set the working directory to Polaris
+WORKDIR /root/polaris
+
+# Command to start the Polaris node
 CMD ["make", "start"]
