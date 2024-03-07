@@ -9,7 +9,7 @@ WORKDIR /root
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y curl git jq lz4 wget build-essential source && \
+    apt-get install -y curl git jq lz4 wget build-essential && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Go
@@ -19,7 +19,7 @@ RUN curl -L https://go.dev/dl/go1.21.4.linux-amd64.tar.gz | tar -xzf - -C /usr/l
 ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 
 RUN curl -L https://foundry.paradigm.xyz | bash && \
-    source /root/.bashrc && \
+    . /root/.bashrc && \
     foundryup
 
 # Clone Babylon repository and checkout the specific version
