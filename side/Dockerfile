@@ -26,8 +26,8 @@ RUN git clone https://github.com/sideprotocol/sidechain.git && \
 
 # Prepare binaries for Cosmovisor
 RUN mkdir -p /root/.side/cosmovisor/genesis/bin && \
-    mv /root/side/build/sided /root/.side/cosmovisor/genesis/bin/ && \
-    rm -rf /root/side/build
+    mv /root/sidechain/build/sided /root/.side/cosmovisor/genesis/bin/ && \
+    rm -rf /root/sidechain/build
 
 # Create symlinks for the application
 RUN ln -s /root/.side/cosmovisor/genesis /root/.side/cosmovisor/current -f && \
