@@ -13,11 +13,13 @@ RUN wget https://golang.org/dl/go1.21.4.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.21.4.linux-amd64.tar.gz
 
 # Add Go to PATH
-ENV PATH="/root/.foundry/bin:${PATH}"
+ENV PATH="${PATH}:/usr/local/go/bin"
 
 # Download and execute the script from Foundry Paradigm, and install Foundry
 RUN curl -L https://foundry.paradigm.xyz | bash && \
     /root/.foundry/bin/foundryup
+
+ENV PATH="/root/.foundry/bin:${PATH}"
 
 # Clone the Polaris repository
 RUN cd /root && \
@@ -29,7 +31,7 @@ RUN cd /root && \
 # EXPOSE <port>
 
 # Set the working directory to Polaris
-# WORKDIR /root/polaris
+WORKDIR /root/polaris
 
 # Command to start the Polaris node
 CMD ["make", "start"]
