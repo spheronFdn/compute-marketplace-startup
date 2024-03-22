@@ -3,25 +3,32 @@
 # Set the moniker
 MONIKER=${MONIKER:-"YOUR_MONIKER_GOES_HERE"}
 
-# Set node configuration
-babylond config chain-id bbn-test-2
-babylond config keyring-backend test
-babylond config node tcp://localhost:16457
+# Set node CLI configuration
+babylond config set client chain-id bbn-test-3
+babylond config set client keyring-backend test
+babylond config set client node tcp://localhost:20657
 
 # Initialize the node
-babylond init "$MONIKER" --chain-id bbn-test-2
+babylond init "$MONIKER" --chain-id bbn-test-3
 
-# Download genesis and addrbook
-curl -Ls https://snapshots.kjnodes.com/babylon-testnet/genesis.json > $HOME/.babylond/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/babylon-testnet/addrbook.json > $HOME/.babylond/config/addrbook.json
+# Download genesis and addrbook files
+curl -L https://snapshots-testnet.nodejumper.io/babylon-testnet/genesis.json > $HOME/.babylond/config/genesis.json
+curl -L https://snapshots-testnet.nodejumper.io/babylon-testnet/addrbook.json > $HOME/.babylond/config/addrbook.json
 
 # Add seeds
-sed -i -e "s|^seeds *=.*|seeds = \"3f472746f46493309650e5a033076689996c8881@babylon-testnet.rpc.kjnodes.com:16459\"|" $HOME/.babylond/config/config.toml
+sed -i -e "s|^seeds *=.*|seeds = \"49b4685f16670e784a0fe78f37cd37d56c7aff0e@3.14.89.82:26656,9cb1974618ddd541c9a4f4562b842b96ffaf1446@3.16.63.237:26656\"|" $HOME/.babylond/config/config.toml
 
-# Set minimum gas price
+# Change network to signet:
+sed -i 's/minimum-gas-prices = "0stake"/minimum-gas-prices = "0.00001ubbn"/' $HOME/.babylond/config/app.toml
+sed -i -e "s|^network *=.*|network = \"signet\"|" $HOME/.babylond/config/app.toml
+
+# Set minimum gas price:
 sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.00001ubbn\"|" $HOME/.babylond/config/app.toml
 
-# Set pruning options
+# Set peers:
+# PEERS="cac4a3199ab2f361eb86ee445a0c2d3f8ab5a5dd@62.171.154.184:26656,59b484e1370f211ba74f5b8e1316a0752a55d090@65.108.75.197:26656,11a40047f142b07119b29262da9f7800640b0699@88.217.142.242:16456,434cbf7c51cf082bb92fca773bd12d5ccd7b1e44@109.199.119.227:26656,2af11b08ea816acb95d4de33c3de07a32c1cc801@82.208.20.66:26656"
+# sed -i 's|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.babylond/config/config.toml
+
 sed -i \
   -e 's|^pruning *=.*|pruning = "custom"|' \
   -e 's|^pruning-keep-recent *=.*|pruning-keep-recent = "100"|' \
@@ -29,16 +36,12 @@ sed -i \
   -e 's|^pruning-interval *=.*|pruning-interval = "10"|' \
   $HOME/.babylond/config/app.toml
 
-# Set custom ports for various services
-sed -i -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:16458\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:16457\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:16460\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:16456\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":16466\"%" $HOME/.babylond/config/config.toml
-sed -i -e "s%^address = \"tcp://localhost:1317\"%address = \"tcp://0.0.0.0:16417\"%; s%^address = \":8080\"%address = \":16480\"%; s%^address = \"localhost:9090\"%address = \"0.0.0.0:16490\"%; s%^address = \"localhost:9091\"%address = \"0.0.0.0:16491\"%; s%:8545%:16445%; s%:8546%:16446%; s%:6065%:16465%" $HOME/.babylond/config/app.toml
+# Change ports
+sed -i -e "s%:1317%:20617%; s%:8080%:20680%; s%:9090%:20690%; s%:9091%:20691%; s%:8545%:20645%; s%:8546%:20646%; s%:6065%:20665%" $HOME/.babylond/config/app.toml
+sed -i -e "s%:26658%:20658%; s%:26657%:20657%; s%:6060%:20660%; s%:26656%:20656%; s%:26660%:20661%" $HOME/.babylond/config/config.toml
 
+# Download latest chain data snapshot
+curl "https://snapshots-testnet.nodejumper.io/babylon-testnet/babylon-testnet_latest.tar.lz4" | lz4 -dc - | tar -xf - -C "$HOME/.babylond"
 
-# Download latest chain snapshot
-curl -L https://snapshots.kjnodes.com/babylon-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.babylond
-[[ -f $HOME/.babylond/data/upgrade-info.json ]] && cp $HOME/.babylond/data/upgrade-info.json $HOME/.babylond/cosmovisor/genesis/upgrade-info.json
-
-# Start the node (if applicable, or configure to start with Docker container)
-# This part may need to be handled outside of the script for Docker deployments
 
 echo "Setup complete. Node configured and ready."

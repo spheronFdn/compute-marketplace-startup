@@ -13,25 +13,25 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Go
-RUN curl -L https://go.dev/dl/go1.22.0.linux-amd64.tar.gz | tar -xzf - -C /usr/local
+RUN curl -L https://go.dev/dl/go1.21.6.linux-amd64.tar.gz | tar -xzf - -C /usr/local
 
 # Correctly set the PATH to include both Go binaries and workspace binaries
 ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 
 # Clone Babylon repository and checkout the specific version
-RUN git clone https://github.com/babylonchain/babylon.git && \
-    cd babylon && \
-    git checkout v0.8.3 && \
+RUN git clone https://github.com/sideprotocol/sidechain.git && \
+    cd sidechain && \
+    git checkout v0.6.0 && \
     make build
 
 # Prepare binaries for Cosmovisor
-RUN mkdir -p /root/.babylond/cosmovisor/genesis/bin && \
-    mv /root/babylon/build/babylond /root/.babylond/cosmovisor/genesis/bin/ && \
-    rm -rf /root/babylon/build
+RUN mkdir -p /root/.side/cosmovisor/genesis/bin && \
+    mv /root/sidechain/build/sided /root/.side/cosmovisor/genesis/bin/ && \
+    rm -rf /root/sidechain/build
 
 # Create symlinks for the application
-RUN ln -s /root/.babylond/cosmovisor/genesis /root/.babylond/cosmovisor/current -f && \
-    ln -s /root/.babylond/cosmovisor/current/bin/babylond /usr/local/bin/babylond -f
+RUN ln -s /root/.side/cosmovisor/genesis /root/.side/cosmovisor/current -f && \
+    ln -s /root/.side/cosmovisor/current/bin/sided /usr/local/bin/sided -f
 
 # Install Cosmovisor
 RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
