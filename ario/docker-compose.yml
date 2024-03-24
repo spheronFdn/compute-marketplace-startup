@@ -1,0 +1,77 @@
+version: '3.0'
+
+services:
+  envoy:
+    image: ghcr.io/ar-io/ar-io-envoy:latest
+    ports:
+      - '3000:3000'
+      - '9901:9901'
+    environment:
+      - LOG_LEVEL=info
+      - TVAL_AR_IO_HOST=core
+      - TVAL_AR_IO_PORT=4000
+      - TVAL_OBSERVER_HOST=observer
+      - TVAL_OBSERVER_PORT=5000
+      - TVAL_GATEWAY_HOST=arweave.net
+      - TVAL_GRAPHQL_HOST=core
+      - TVAL_GRAPHQL_PORT=4000
+      - TVAL_ARNS_ROOT_HOST=
+    depends_on:
+      - core
+      - observer
+
+  core:
+    image: ghcr.io/ar-io/ar-io-core:latest
+    ports:
+      - 4000:4000
+    environment:
+      - NODE_ENV=production
+      - LOG_FORMAT=simple
+      - TRUSTED_NODE_URL=
+      - TRUSTED_GATEWAY_URL=https://arweave.net
+      - START_HEIGHT=0
+      - STOP_HEIGHT=
+      - SKIP_CACHE=
+      - SIMULATED_REQUEST_FAILURE_RATE=
+      - INSTANCE_ID=
+      - AR_IO_WALLET=
+      - ADMIN_API_KEY=
+      - BACKFILL_BUNDLE_RECORDS=
+      - FILTER_CHANGE_REPROCESS=
+      - ANS104_UNBUNDLE_WORKERS=
+      - ANS104_DOWNLOAD_WORKERS=
+      - ANS104_UNBUNDLE_FILTER=
+      - ANS104_INDEX_FILTER=
+      - ARNS_ROOT_HOST=
+      - SANDBOX_PROTOCOL=
+      - START_WRITERS=
+      - CONTRACT_ID=
+      - CHAIN_CACHE_TYPE=redis
+      - REDIS_CACHE_URL=redis://redis:6379
+      - REDIS_CACHE_TTL_SECONDS=
+      - NODE_JS_MAX_OLD_SPACE_SIZE=
+      - ENABLE_FS_HEADER_CACHE_CLEANUP=true
+      - ON_DEMAND_RETRIEVAL_ORDER=
+      - WEBHOOK_TARGET_SERVERS=
+      - WEBHOOK_INDEX_FILTER=
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru ---save "" --appendonly no
+    ports:
+      - 6379:6379
+
+  observer:
+    image: ghcr.io/ar-io/ar-io-observer:latest
+    ports:
+      - 5000:5000
+    environment:
+      - PORT=5000
+      - OBSERVER_WALLET=
+      - CONTRACT_ID=bLAgYxAdX2Ry-nt6aH2ixgvJXbpsEYm28NgJgyqfs-U
+      - SUBMIT_CONTRACT_INTERACTIONS=true
+      - NUM_ARNS_NAMES_TO_OBSERVE_PER_GROUP=5
+      - REPORT_GENERATION_INTERVAL_MS=
+      - RUN_OBSERVER=true

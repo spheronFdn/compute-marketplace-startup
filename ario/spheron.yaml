@@ -1,0 +1,204 @@
+projectName: ArIO Testing
+services:
+  - name: envoy
+    image: ghcr.io/ar-io/ar-io-envoy
+    tag: latest
+    count: 1
+    ports:
+      - exposedPort: 3000
+        containerPort: 80
+        global: true
+      - exposedPort: 9901
+        containerPort: 9901
+        global: true
+    env:
+      - name: LOG_LEVEL
+        value: info
+        hidden: false
+      - name: TVAL_AR_IO_HOST
+        value: core
+        hidden: false
+      - name: TVAL_AR_IO_PORT
+        value: "4000"
+        hidden: false
+      - name: TVAL_OBSERVER_HOST
+        value: observer
+        hidden: false
+      - name: TVAL_OBSERVER_PORT
+        value: "5000"
+        hidden: false
+      - name: TVAL_GATEWAY_HOST
+        value: arweave.net
+        hidden: false
+      - name: TVAL_GRAPHQL_HOST
+        value: core
+        hidden: false
+      - name: TVAL_GRAPHQL_PORT
+        value: "4000"
+        hidden: false
+      - name: TVAL_ARNS_ROOT_HOST
+        value: ""
+        hidden: false
+    commands: []
+    args: []
+    plan: Ventus 2x Large
+    customParams:
+      storage: 40Gi
+  - name: core
+    image: ghcr.io/ar-io/ar-io-core
+    tag: latest
+    count: 1
+    ports:
+      - exposedPort: 4000
+        containerPort: 4000
+        global: false
+        exposeTo:
+          - envoy
+    env:
+      - name: NODE_ENV
+        value: production
+        hidden: false
+      - name: LOG_FORMAT
+        value: simple
+        hidden: false
+      - name: TRUSTED_NODE_URL
+        value: ""
+        hidden: false
+      - name: TRUSTED_GATEWAY_URL
+        value: https://arweave.net
+        hidden: false
+      - name: START_HEIGHT
+        value: "0"
+        hidden: false
+      - name: STOP_HEIGHT
+        value: ""
+        hidden: false
+      - name: SKIP_CACHE
+        value: ""
+        hidden: false
+      - name: SIMULATED_REQUEST_FAILURE_RATE
+        value: ""
+        hidden: false
+      - name: INSTANCE_ID
+        value: ""
+        hidden: false
+      - name: AR_IO_WALLET
+        value: ""
+        hidden: false
+      - name: ADMIN_API_KEY
+        value: ""
+        hidden: false
+      - name: BACKFILL_BUNDLE_RECORDS
+        value: ""
+        hidden: false
+      - name: FILTER_CHANGE_REPROCESS
+        value: ""
+        hidden: false
+      - name: ANS104_UNBUNDLE_WORKERS
+        value: ""
+        hidden: false
+      - name: ANS104_DOWNLOAD_WORKERS
+        value: ""
+        hidden: false
+      - name: ANS104_UNBUNDLE_FILTER
+        value: ""
+        hidden: false
+      - name: ANS104_INDEX_FILTER
+        value: ""
+        hidden: false
+      - name: ARNS_ROOT_HOST
+        value: ""
+        hidden: false
+      - name: SANDBOX_PROTOCOL
+        value: ""
+        hidden: false
+      - name: START_WRITERS
+        value: ""
+        hidden: false
+      - name: CONTRACT_ID
+        value: ""
+        hidden: false
+      - name: CHAIN_CACHE_TYPE
+        value: redis
+        hidden: false
+      - name: REDIS_CACHE_URL
+        value: redis://redis:6379
+        hidden: false
+      - name: REDIS_CACHE_TTL_SECONDS
+        value: ""
+        hidden: false
+      - name: NODE_JS_MAX_OLD_SPACE_SIZE
+        value: ""
+        hidden: false
+      - name: ENABLE_FS_HEADER_CACHE_CLEANUP
+        value: "true"
+        hidden: false
+      - name: ON_DEMAND_RETRIEVAL_ORDER
+        value: ""
+        hidden: false
+      - name: WEBHOOK_TARGET_SERVERS
+        value: ""
+        hidden: false
+      - name: WEBHOOK_INDEX_FILTER
+        value: ""
+        hidden: false
+    commands: []
+    args: []
+    plan: Ventus 2x Large
+    customParams:
+      storage: 256Gi
+  - name: redis
+    image: redis
+    tag: "latest"
+    count: 1
+    ports:
+      - exposedPort: 6379
+        containerPort: 6379
+        global: false
+        exposeTo:
+          - core
+    env: []
+    commands: []
+    args: []
+    plan: Ventus Medium
+    customParams:
+      storage: 20Gi
+  - name: observer
+    image: ghcr.io/ar-io/ar-io-observer
+    tag: latest
+    count: 1
+    ports:
+      - exposedPort: 5000
+        containerPort: 5000
+        global: false
+        exposeTo:
+          - envoy
+    env:
+      - name: PORT
+        value: "5000"
+        hidden: false
+      - name: OBSERVER_WALLET
+        value: ""
+        hidden: false
+      - name: CONTRACT_ID
+        value: bLAgYxAdX2Ry-nt6aH2ixgvJXbpsEYm28NgJgyqfs-U
+        hidden: false
+      - name: SUBMIT_CONTRACT_INTERACTIONS
+        value: "true"
+        hidden: false
+      - name: NUM_ARNS_NAMES_TO_OBSERVE_PER_GROUP
+        value: "5"
+        hidden: false
+      - name: REPORT_GENERATION_INTERVAL_MS
+        value: ""
+        hidden: false
+      - name: RUN_OBSERVER
+        value: "true"
+        hidden: false
+    commands: []
+    args: []
+    plan: Ventus 2x Large
+    customParams:
+      storage: 40Gi
+region: us-west
+type: on_demand
