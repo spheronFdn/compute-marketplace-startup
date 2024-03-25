@@ -18,13 +18,14 @@ curl -o $ZIP_FILE $URL
 
 # Unzip the file
 echo "Unzipping the file..."
-mkdir $TEMP_DIR
+mkdir $TEMP_DIR $PK_DIR $APP_DIR
 unzip $ZIP_FILE -d $TEMP_DIR
 
 # Move the files
 echo "Moving files to the destination directory..."
 cp -r $TEMP_DIR/zkevm-node/app/public.genesis.config.json $APP_DIR/genesis.json
 cp -r $TEMP_DIR/zkevm-node/app/public.node.config.toml $APP_DIR/config.toml
+cp -r $TEMP_DIR/zkevm-node/app/config.local.toml $APP_DIR/config.local.toml
 cp -r $TEMP_DIR/zkevm-node/pk/* $PK_DIR
 # mv $TEMP_DIR/zkevm-node/pk/* $PK_DIR
 

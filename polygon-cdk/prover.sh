@@ -1,15 +1,10 @@
 #!/bin/bash
 
-# Set variables
-DEPENDENCIES="curl unzip" # Add other dependencies separated by spaces
-URL="https://github.com/spheronFdn/compute-marketplace-startup/raw/rekpero/polygon-cdk/polygon-cdk/prover.zip"
+# Set variablesdd other dependencies separated by spaces
+URL="https://bafybeigjhwufcgrg4fdffu65wcdhshn2vuh3dpeqkg6ewk2m5tx5rcuh6q.ipfs.sphn.link/prover.zip"
 CONFIG_DIR="/usr/src/app"
 ZIP_FILE="prover.zip"
 TEMP_DIR="temp_unzip_dir"
-
-# Install dependencies
-echo "Installing dependencies..."
-sudo apt update && sudo apt install -y $DEPENDENCIES
 
 # Download the zip file
 echo "Downloading zip file from $URL..."
@@ -17,12 +12,12 @@ curl -o $ZIP_FILE $URL
 
 # Unzip the file
 echo "Unzipping the file..."
-mkdir $TEMP_DIR
+mkdir $TEMP_DIR $CONFIG_DIR
 unzip $ZIP_FILE -d $TEMP_DIR
 
 # Move the files
 echo "Moving files to the destination directory..."
-mv $TEMP_DIR/* $CONFIG_DIR
+cp -r $TEMP_DIR/prover/public.prover.config.json $APP_DIR/config.json
 
 # Clean up
 echo "Cleaning up..."
