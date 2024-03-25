@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set variables
-DEPENDENCIES="curl unzip" # Add other dependencies separated by spaces
+DEPENDENCIES="unzip" # Add other dependencies separated by spaces
 URL="https://github.com/spheronFdn/compute-marketplace-startup/raw/rekpero/polygon-cdk/polygon-cdk/zkevm-node.zip"
 APP_DIR="/app"
 PK_DIR="/pk"
@@ -10,7 +10,7 @@ TEMP_DIR="temp_unzip_dir"
 
 # Install dependencies
 echo "Installing dependencies..."
-apt update && apk add $DEPENDENCIES
+# apt update && apk add $DEPENDENCIES
 
 # Download the zip file
 echo "Downloading zip file from $URL..."
