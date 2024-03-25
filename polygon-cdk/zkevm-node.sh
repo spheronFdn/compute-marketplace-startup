@@ -2,7 +2,7 @@
 
 # Set variables
 DEPENDENCIES="unzip" # Add other dependencies separated by spaces
-URL="https://bafybeigjhwufcgrg4fdffu65wcdhshn2vuh3dpeqkg6ewk2m5tx5rcuh6q.ipfs.sphn.link/zkevm-node.zip"
+URL="https://bafybeic2z5w3rdo4jvn4cqfncouj3arw54io3rduzxa7fvkq5hguhuvjwq.ipfs.sphn.link/zkevm-node.zip"
 APP_DIR="/app"
 PK_DIR="/pk"
 ZIP_FILE="zkevm-node.zip"
