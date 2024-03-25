@@ -18,7 +18,7 @@ curl -o $ZIP_FILE $URL
 
 # Unzip the file
 echo "Unzipping the file..."
-mkdir $TEMP_DIR
+mkdir $TEMP_DIR $APP_DIR $PK_DIR
 unzip $ZIP_FILE -d $TEMP_DIR
 
 # Move the files
