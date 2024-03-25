@@ -3,7 +3,7 @@
 # Set variables
 DEPENDENCIES="unzip" # Add other dependencies separated by spaces
 URL="https://bafybeigjhwufcgrg4fdffu65wcdhshn2vuh3dpeqkg6ewk2m5tx5rcuh6q.ipfs.sphn.link/zkevm-node.zip"
-APP_DIR="/"
+APP_DIR="/app"
 PK_DIR="/pk"
 ZIP_FILE="zkevm-node.zip"
 TEMP_DIR="temp_unzip_dir"
@@ -23,8 +23,8 @@ unzip $ZIP_FILE -d $TEMP_DIR
 
 # Move the files
 echo "Moving files to the destination directory..."
-mv $TEMP_DIR/zkevm-node/* $APP_DIR
-ls $APP_DIR
+cp -r $TEMP_DIR/zkevm-node/app/* $APP_DIR
+cp -r $TEMP_DIR/zkevm-node/pk/* $PK_DIR
 # mv $TEMP_DIR/zkevm-node/pk/* $PK_DIR
 
 # Clean up
