@@ -24,7 +24,7 @@ unzip $ZIP_FILE -d $TEMP_DIR
 # Move the files
 echo "Moving files to the destination directory..."
 mv $TEMP_DIR/zkevm-node/app/* $APP_DIR
-mv $TEMP_DIR/zkevm-node/pk/* $PK_DIR
+# mv $TEMP_DIR/zkevm-node/pk/* $PK_DIR
 
 # Clean up
 echo "Cleaning up..."
