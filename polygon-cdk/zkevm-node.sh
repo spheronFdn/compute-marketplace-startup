@@ -10,7 +10,7 @@ TEMP_DIR="temp_unzip_dir"
 
 # Install dependencies
 echo "Installing dependencies..."
-sudo apt update && sudo apt install -y $DEPENDENCIES
+apt update && apk add $DEPENDENCIES
 
 # Download the zip file
 echo "Downloading zip file from $URL..."
