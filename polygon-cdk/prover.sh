@@ -2,9 +2,9 @@
 
 # Set variables
 DEPENDENCIES="curl unzip" # Add other dependencies separated by spaces
-URL="http://example.com/path/to/your/file.zip"
+URL="https://github.com/spheronFdn/compute-marketplace-startup/raw/rekpero/polygon-cdk/polygon-cdk/prover.zip"
 CONFIG_DIR="/usr/src/app"
-ZIP_FILE="downloaded_file.zip"
+ZIP_FILE="prover.zip"
 TEMP_DIR="temp_unzip_dir"
 
 # Install dependencies
