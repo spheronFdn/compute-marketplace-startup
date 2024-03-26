@@ -257,7 +257,7 @@ services:
     command: 
       - "/bin/sh"
       - "-c"
-      - "apk update && apk add curl unzip && curl -sSL https://raw.githubusercontent.com/spheronFdn/compute-marketplace-startup/rekpero/polygon-cdk/polygon-cdk/prover.sh -o prover.sh && chmod +x prover.sh && sh provere.sh && zkProver -c /usr/src/app/config.json"
+      - "apt update && apt install -y curl unzip && curl -sSL https://raw.githubusercontent.com/spheronFdn/compute-marketplace-startup/rekpero/polygon-cdk/polygon-cdk/prover.sh -o prover.sh && chmod +x prover.sh && sh provere.sh && zkProver -c /usr/src/app/config.json"
 
   zkevm-approve:
     container_name: zkevm-approve
@@ -269,15 +269,15 @@ services:
       - "-c"
       - "apk update && apk add curl unzip && curl -sSL https://raw.githubusercontent.com/spheronFdn/compute-marketplace-startup/rekpero/polygon-cdk/polygon-cdk/zkevm-node.sh -o zkevm-node.sh && chmod +x zkevm-node.sh && sh zkevm-node.sh && /app/zkevm-node approve --network custom --custom-network-file /app/genesis.json --key-store-path /pk/keystore --pw password --am 115792089237316195423570985008687907853269984665640564039457584007913129639935 -y --cfg /app/config.toml"
 
-  zkevm-metrics:
-    image: prom/prometheus:v2.39.1
-    container_name: zkevm-metrics
-    restart: unless-stopped
-    ports:
-      - 9090:9090
-    command:
-      - --config.file=/etc/prometheus/prometheus.yml
-      - --web.enable-lifecycle
+  # zkevm-metrics:
+  #   image: prom/prometheus:v2.39.1
+  #   container_name: zkevm-metrics
+  #   restart: unless-stopped
+  #   ports:
+  #     - 9090:9090
+  #   command:
+  #     - --config.file=/etc/prometheus/prometheus.yml
+  #     - --web.enable-lifecycle
 
   zkevm-bridge-db:
     container_name: zkevm-bridge-db
