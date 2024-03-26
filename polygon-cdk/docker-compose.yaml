@@ -357,7 +357,7 @@ services:
     container_name: zkevm-bridge-ui
     image: hermeznetwork/zkevm-bridge-ui:latest
     ports:
-      - 8080:80
+      - 8081:80
     environment:
       - ETHEREUM_RPC_URL=http://zkevm-mock-l1-network:8545
       - ETHEREUM_EXPLORER_URL=http://zkevm-explorer-l1:4000
