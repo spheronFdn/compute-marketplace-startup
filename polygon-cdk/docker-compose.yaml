@@ -257,7 +257,7 @@ services:
     command: 
       - "/bin/sh"
       - "-c"
-      - "apt update && apt install -y curl unzip && curl -sSL https://raw.githubusercontent.com/spheronFdn/compute-marketplace-startup/rekpero/polygon-cdk/polygon-cdk/prover.sh -o prover.sh && chmod +x prover.sh && sh provere.sh && zkProver -c /usr/src/app/config.json"
+      - "apt update && apt install -y curl unzip && curl -sSL https://raw.githubusercontent.com/spheronFdn/compute-marketplace-startup/rekpero/polygon-cdk/polygon-cdk/prover.sh -o prover.sh && chmod +x prover.sh && sh prover.sh && zkProver -c /usr/src/app/config.json"
 
   zkevm-approve:
     container_name: zkevm-approve
