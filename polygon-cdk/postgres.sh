@@ -2,7 +2,7 @@
 
 # Set variables
 DEPENDENCIES="curl unzip" # Add other dependencies separated by spaces
-URL="https://github.com/spheronFdn/compute-marketplace-startup/raw/rekpero/polygon-cdk/polygon-cdk/postgres.zip"
+URL="https://zkevm-testing.b-cdn.net/postgres.zip"
 INIT_FILE="/docker-entrypoint-initdb.d/init.sql"
 CONF_FILE="/etc/postgresql.conf"
 ZIP_FILE="postgres.zip"

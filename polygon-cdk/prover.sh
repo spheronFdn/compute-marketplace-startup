@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set variablesdd other dependencies separated by spaces
-URL="https://bafybeigjhwufcgrg4fdffu65wcdhshn2vuh3dpeqkg6ewk2m5tx5rcuh6q.ipfs.sphn.link/prover.zip"
+URL="https://zkevm-testing.b-cdn.net/prover.zip"
 CONFIG_DIR="/usr/src/app"
 ZIP_FILE="prover.zip"
 TEMP_DIR="temp_unzip_dir"

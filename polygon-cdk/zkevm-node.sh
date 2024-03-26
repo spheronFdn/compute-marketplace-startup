@@ -2,7 +2,7 @@
 
 # Set variables
 DEPENDENCIES="unzip" # Add other dependencies separated by spaces
-URL="https://bafybeic2z5w3rdo4jvn4cqfncouj3arw54io3rduzxa7fvkq5hguhuvjwq.ipfs.sphn.link/zkevm-node.zip"
+URL="https://zkevm-testing.b-cdn.net/zkevm-node.zip"
 APP_DIR="/app"
 PK_DIR="/pk"
 ZIP_FILE="zkevm-node.zip"
@@ -18,7 +18,7 @@ curl -o $ZIP_FILE $URL
 
 # Unzip the file
 echo "Unzipping the file..."
-mkdir $TEMP_DIR $PK_DIR $APP_DIR
+mkdir $TEMP_DIR $PK_DIR
 unzip $ZIP_FILE -d $TEMP_DIR
 
 # Move the files
